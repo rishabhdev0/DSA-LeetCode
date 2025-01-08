@@ -9,7 +9,10 @@ public:
         }
 
         // if the last element is 0 then we check and insert the +1 in the front for example 999 = last digit is 9 +1=0 then in the front we will insert 1 it will become 1000
-         digits[i]=0;
+        else{
+             digits[i]=0;
+        }
+        
      }    
      digits.insert(digits.begin(),1);
 
