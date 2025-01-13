@@ -38,17 +38,17 @@ public:
 class Solution {
  public:
   int findMin(vector<int>& nums) {
-    int l = 0;
-    int r = nums.size() - 1;
+    int s = 0;
+    int e = nums.size() - 1;
 
-    while (l < r) {
-      const int m = (l + r) / 2;
-      if (nums[m] < nums[r])
-        r = m;
+    while (s < e) {
+       int mid = (s + e) / 2;
+      if (nums[mid] < nums[e])
+        e = mid;
       else
-        l = m + 1;
+        s = mid + 1;
     }
 
-    return nums[l];
+    return nums[s];
   }
 };
