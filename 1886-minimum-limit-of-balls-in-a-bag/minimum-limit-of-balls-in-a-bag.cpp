@@ -22,7 +22,7 @@ public:
         int n=nums.size();
         int s=1;
         int e=find_max(nums);
-        int result=s;
+        int result=INT_MIN;
         while(s<=e){
             int mid=s+(e-s)/2;
              if(ispossible(nums,mid,maxOperations)){
