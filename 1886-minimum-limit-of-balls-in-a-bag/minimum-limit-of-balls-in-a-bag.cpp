@@ -11,11 +11,11 @@ class Solution {
 
     int ispossible(vector<int>&nums,int value,int maxOperations){
         int count = 0;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            count+=ceil((double)(nums[i]-value)/value);
+       for (int num : nums) {
+            count += (num - 1) / value;  
+            if (count > maxOperations) return false;  
         }
-return count<=maxOperations;
+        return count <= maxOperations;
     }
 public:
     int minimumSize(vector<int>& nums, int maxOperations) {
