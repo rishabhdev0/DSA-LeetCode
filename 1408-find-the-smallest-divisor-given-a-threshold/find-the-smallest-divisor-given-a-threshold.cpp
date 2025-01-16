@@ -9,12 +9,13 @@ class Solution {
         return maxi;
     }
 
-int ispossible(vector<int>&nums,int divsior,int threshold){ 
+int ispossible(vector<int>&nums,int divisor,int threshold){ 
 int n=nums.size();
 int sum=0;
-for(int i=0;i<n;i++){
-    sum+=ceil(double(nums[i])/divsior);
-}
+for (int num : nums) {
+            
+            sum += (num + divisor - 1) / divisor;
+        }
 return sum<=threshold;
 }
 
