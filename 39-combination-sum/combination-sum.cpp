@@ -1,13 +1,14 @@
 class Solution {
 public:
-    void recursion(vector<int>candidates, int target, int index, vector<vector<int>>& ans, vector<int>& output) {
-       if(index==candidates.size()){
-        if(target==0){
-            ans.push_back(output);
-            
+    void recursion(vector<int>& candidates, int target, int index, vector<vector<int>>& ans, vector<int>& output) {
+        if (target == 0) {
+            ans.push_back(output);  
+            return;
         }
-        return;
-       }
+        
+        if (index >= candidates.size()) {
+            return;
+        }
 
         recursion(candidates, target, index + 1, ans, output);
 
