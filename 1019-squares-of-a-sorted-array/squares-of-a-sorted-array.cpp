@@ -6,7 +6,7 @@ public:
         int e = nums.size() - 1; 
         int result = nums.size() - 1;  // Position to insert values into the sqrt array
 
-        while (s <= e) {  
+        while (result>=0) {  
             int start = nums[s] * nums[s];
             int end = nums[e] * nums[e];
 
