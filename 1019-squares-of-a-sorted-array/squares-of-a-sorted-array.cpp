@@ -2,10 +2,23 @@ class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
         vector<int> sqrt(nums.size());
-        for (int i = 0; i < nums.size(); i++) {
-            sqrt[i] = nums[i] * nums[i];  
+        int s = 0;  
+        int e = nums.size() - 1; 
+        int result = nums.size() - 1;  // Position to insert values into the sqrt array
+
+        while (s <= e) {  
+            int start = nums[s] * nums[s];
+            int end = nums[e] * nums[e];
+
+            if (start > end) {
+                sqrt[result] = start;  
+                s++; 
+            } else {
+                sqrt[result] = end; 
+                e--;  
+            }
+            result--;  // Decrement result to move to the next position
         }
-        sort(sqrt.begin(), sqrt.end());  
-        return sqrt;  
+        return sqrt;
     }
 };
