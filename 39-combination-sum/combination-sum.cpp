@@ -24,7 +24,7 @@ public:
         vector<vector<int>> ans;
         vector<int> output;
         int index = 0;
-        recursion(candidates, target, index, ans, output);  // Start recursion
+        recursion(candidates, target, index, ans, output); 
         return ans;
     }
 };
