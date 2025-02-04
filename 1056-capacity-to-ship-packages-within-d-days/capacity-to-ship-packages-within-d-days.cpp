@@ -23,10 +23,10 @@ for(int weight:weights){
     if(load>capacity){
         day++;
         load=weight;
-    }
-    if(days<day){
-        return 0;
-    }
+        }
+        if(day>days){
+            return 0;
+        }
 } 
 return 1;
 }
