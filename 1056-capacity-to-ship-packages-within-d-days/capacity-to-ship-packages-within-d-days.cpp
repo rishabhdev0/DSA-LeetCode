@@ -7,45 +7,48 @@ private:
         }
         return maxi;
     }
-   int find_sum(const vector<int>&  weights){
-    int totalweight=0;
-    for(int weight:weights){
-     totalweight+=weight;
-    }
-    return totalweight;
-   }
 
-int binarysearch(vector<int>& weights,int capacity,int days){
-int load=0;
-int day=1;
-for(int weight:weights){
-    load+=weight;
-    if(load>capacity){
-        day++;
-        load=weight;
+    int find_sum(const vector<int>& weights) {
+        int totalweight = 0;
+        for (int weight : weights) {
+            totalweight += weight;
         }
-        if(day>days){
-            return 0;
+        return totalweight;
+    }
+
+    bool canShip(const vector<int>& weights, int capacity, int days) {
+        int load = 0;
+        int dayCount = 1;
+        for (int weight : weights) {
+            if (load + weight > capacity) {
+                dayCount++;
+                load = weight;
+                if (dayCount > days) {
+                    return false;
+                }
+            } else {
+                load += weight;
+            }
         }
-} 
-return 1;
-}
+        return true;
+    }
 
 public:
     int shipWithinDays(vector<int>& weights, int days) {
-        int s=find_max(weights);
-        int e=find_sum(weights);
-        int result=e;
-        while(s<=e){
-            int mid=s+(e-s)/2;
-            if(binarysearch(weights,mid,days)){
-                result=mid;
-                e=mid-1;
-            }
-            else{
-                s=mid+1;
+        int left = find_max(weights);
+        int right = find_sum(weights);
+        int result = right;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (canShip(weights, mid, days)) {
+                result = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
-          return result ;
+
+        return result;
     }
 };
