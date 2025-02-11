@@ -1,12 +1,12 @@
 class Solution {
 private:
-    int find_max(vector<int>& dist){
-        int maxi = INT_MIN;
-        for(int i = 0; i < dist.size(); i++){
-            maxi = max(maxi, dist[i]);
-        }
-        return maxi;
-    }
+    // int find_max(vector<int>& dist){
+    //     int maxi = INT_MIN;
+    //     for(int i = 0; i < dist.size(); i++){
+    //         maxi = max(maxi, dist[i]);
+    //     }
+    //     return maxi;
+    // }
 
     bool binarysearch(vector<int>& dist, double hour, int speed){
         double total_time = 0;
