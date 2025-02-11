@@ -8,17 +8,27 @@ private:
     //     return maxi;
     // }
 
+    // bool binarysearch(vector<int>& dist, double hour, int speed){
+    //     double total_time = 0;
+    //     for(int i = 0; i < dist.size(); i++){
+    //         if(i != dist.size() - 1){
+    //             total_time += ceil((double)dist[i] / speed);
+    //         } else {
+    //             total_time += (double)dist[i] / speed;
+    //         }
+    //     }
+    //     return total_time <= hour;
+    // }
     bool binarysearch(vector<int>& dist, double hour, int speed){
-        double total_time = 0;
-        for(int i = 0; i < dist.size(); i++){
-            if(i != dist.size() - 1){
-                total_time += ceil((double)dist[i] / speed);
-            } else {
-                total_time += (double)dist[i] / speed;
-            }
-        }
-        return total_time <= hour;
+    double total_time = 0;
+    for(int i = 0; i < dist.size() - 1; i++){
+        total_time += ceil((double)dist[i] / speed);
     }
+    
+    total_time += (double)dist.back() / speed;
+    
+    return total_time <= hour;
+}
 
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) {
