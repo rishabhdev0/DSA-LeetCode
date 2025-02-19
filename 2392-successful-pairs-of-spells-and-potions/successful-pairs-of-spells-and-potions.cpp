@@ -23,12 +23,12 @@ public:
         vector<int> answer;
 
         for (int i = 0; i < n; i++) {  
-            long long minPortions = ceil((1.0 * success) / spells[i]);
-            if (minPortions > maxPotion) {
+             long long minPortion = (success + spells[i] - 1) / spells[i];
+            if (minPortion > maxPotion) {
                 answer.push_back(0);
                 continue;
             }
-            int index = lower_bound(0, m - 1, potions, minPortions);  
+            int index = lower_bound(0, m - 1, potions, minPortion);  
             int count = (index == -1) ? 0 : m - index;
             answer.push_back(count);
         }
