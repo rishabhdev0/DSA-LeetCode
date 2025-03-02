@@ -8,7 +8,7 @@ public:
         int j = 0;
         while (j < n) {
             cost += abs(s[j] - t[j]);  
-            while (cost > maxCost) { 
+            if(cost > maxCost) { 
                 cost -= abs(s[i] - t[i]);
                 i++;
             }
