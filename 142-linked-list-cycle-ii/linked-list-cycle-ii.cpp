@@ -16,10 +16,9 @@ public:
             fast = fast->next->next;
             if(slow==fast){
                 ListNode* ptr1 = head;
-                ListNode* ptr2 = slow;
-                while(ptr1!=ptr2){
+                while(ptr1!=slow){
                     ptr1= ptr1->next;
-                    ptr2= ptr2->next;
+                    slow= slow->next;
                 }
                 return ptr1;
             }
