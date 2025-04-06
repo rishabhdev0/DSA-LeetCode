@@ -28,6 +28,8 @@ public:
             }else{
                 temp->next=list2;
             }
-            return dummy_node->next;
+            ListNode* head = dummy_node->next;
+            delete dummy_node;
+            return head;
     }
 };
