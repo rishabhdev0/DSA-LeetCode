@@ -35,7 +35,9 @@ private:
         }
         if(lefthead) temp->next = lefthead;
         else temp->next = righthead;
-        return dummy_node->next;
+        ListNode* head = dummy_node->next;
+        delete(dummy_node);
+        return head;
     }
 
 public:
