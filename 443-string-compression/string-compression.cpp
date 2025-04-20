@@ -2,7 +2,7 @@ class Solution {
 public:
     int compress(vector<char>& chars) {
         int n = chars.size();
-        int j = 0; // to store the previos char
+        int index = 0; 
         int i = 0;   
 
         while (i < n) {
@@ -14,18 +14,18 @@ public:
                 count++;
             }
 
-            chars[j] = currentChar;
-            j++;
+            chars[index] = currentChar;
+            index++;
 
             if (count > 1) {
                 string countStr = to_string(count);
                 for (char ch : countStr) {
-                    chars[j] = ch;
-                    j++;
+                    chars[index] = ch;
+                    index++;
                 }
             }
         }
 
-        return j; 
+        return index; 
     }
 };
