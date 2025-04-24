@@ -7,10 +7,10 @@ public:
         if(sorted == nums) return 0;
         int i = 0 ;
         int j = n-1;
-            while(i<j && sorted[i]==nums[i]){
+            while(i<n && sorted[i]==nums[i]){
                 i++;
             }
-            while(i<j && sorted[j]==nums[j]){
+            while(j>=0 && sorted[j]==nums[j]){
                 j--;
             }
         return j-i+1;
