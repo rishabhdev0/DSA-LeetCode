@@ -1,30 +1,29 @@
+#include <cctype> // for isalnum and tolower
+
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int n = s.length();
-        if (n == 0) return true;
-        
         int i = 0;
-        int j = n - 1; 
+        int j = s.size() - 1;
         
         while (i < j) {
-        
+
             while (i < j && !isalnum(s[i])) {
                 i++;
             }
-           
+          
             while (i < j && !isalnum(s[j])) {
                 j--;
             }
             
-            if (tolower(s[i]) != tolower(s[j])) {
-                return false;
+            if (tolower(s[i]) == tolower(s[j])) {
+                i++;
+                j--;
+            } else {
+                return false; 
             }
-            
-            i++;
-            j--;
         }
         
-        return true;
+        return true; // All characters matched
     }
 };
