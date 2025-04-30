@@ -1,33 +1,34 @@
 class Solution {
     private:
-    int max_element(vector<int>& nums){
-        int maxi= INT_MIN;
-        for(int i = 0 ; i < nums.size();i++){
-            maxi = max(nums[i], maxi);
+    int max_element(vector<int>&nums){
+        int maxi = INT_MIN;
+        for(int i = 0 ; i <nums.size();i++){
+            maxi = max(maxi, nums[i]);
         }
         return maxi;
     }
 public:
     long long countSubarrays(vector<int>& nums, int k) {
-        long long count = 0 ;
-        long long result = 0;
+        int maxE = max_element(nums);
         int n = nums.size();
-        int i = 0;
-        int j = 0;
-        int maxE= max_element(nums);
-        while(j<n){
-            if(nums[j]==maxE){
+        long long result = 0;
+        int count = 0;
+        int left = 0;
+
+        for (int right = 0; right < n; ++right) {
+            if (nums[right] == maxE) {
                 count++;
             }
-            while(count >=k){
-                result+=n-j;
-                if(nums[i]==maxE){
+
+            while (count >= k) {
+                result += n - right;
+                if (nums[left] == maxE) {
                     count--;
                 }
-                i++;
+                left++;
             }
-            j++;
         }
+
         return result;
     }
 };
