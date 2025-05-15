@@ -1,17 +1,42 @@
 class Solution {
 public:
-    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+    long long countFairPairs(std::vector<int>& nums, int lower, int upper) {
+        std::sort(nums.begin(), nums.end());
+        long long count = 0;
         int n = nums.size();
-        sort(nums.begin(), nums.end());
-        long long result = 0;
-        
-        for (int i = 0; i < n; i++) {
 
-            int x = lower_bound(nums.begin() + i + 1, nums.end(), lower - nums[i]) - nums.begin();
-            int y = upper_bound(nums.begin() + i + 1, nums.end(), upper - nums[i]) - nums.begin();
-            result += (y - x);
+        for (int i = 0; i < n; i++) {
+           
+            int left = manual_lower_bound(nums, i + 1, n, lower - nums[i]);
+            int right = manual_upper_bound(nums, i + 1, n, upper - nums[i]);
+            count += (right - left);
         }
-        
-        return result;
+
+        return count;
+    }
+
+private:
+    int manual_lower_bound(const std::vector<int>& nums, int start, int end, int target) {
+        int left = start, right = end;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return left;
+    }
+
+    int manual_upper_bound(const std::vector<int>& nums, int start, int end, int target) {
+        int left = start, right = end;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] <= target)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return left;
     }
 };
