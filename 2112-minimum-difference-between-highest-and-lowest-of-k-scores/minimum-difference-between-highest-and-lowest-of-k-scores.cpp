@@ -12,7 +12,8 @@ public:
 
         while (j < n) {
             if (j - i + 1 == k) { 
-                min_diff = min(min_diff, nums[j]-nums[i]);
+                int diff = nums[j]-nums[i];
+                min_diff = min(min_diff, diff);
                 i++;
                 j++;
             } else j++;
