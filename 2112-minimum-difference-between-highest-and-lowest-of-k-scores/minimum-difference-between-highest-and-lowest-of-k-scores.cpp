@@ -11,14 +11,11 @@ public:
         int min_diff = INT_MAX;
 
         while (j < n) {
-            if (j - i + 1 == k) {
-                int diff = nums[j] - nums[i];  
-                min_diff = min(min_diff, diff);
+            if (j - i + 1 == k) { 
+                min_diff = min(min_diff, nums[j]-nums[i]);
                 i++;
                 j++;
-            } else {
-                j++;
-            }
+            } else j++;
         }
 
         return min_diff;
