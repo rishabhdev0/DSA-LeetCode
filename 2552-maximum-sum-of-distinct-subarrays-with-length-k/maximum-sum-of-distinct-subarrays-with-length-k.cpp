@@ -11,16 +11,16 @@ public:
             curr_sum += nums[j];
             freq[nums[j]]++;
 
+            if (j - i + 1 == k) {
+                // Check if all elements are distinct
+                if (freq.size() == k) {
+                    max_sum = max(max_sum, curr_sum);
+                }
 
-            if (j - i + 1 > k) {
                 curr_sum -= nums[i];
                 freq[nums[i]]--;
                 if (freq[nums[i]] == 0) freq.erase(nums[i]);
                 i++;
-            }
-
-            if (j - i + 1 == k && freq.size() == k) {
-                max_sum = max(max_sum, curr_sum);
             }
         }
 
