@@ -11,6 +11,7 @@ public:
             curr_sum += nums[j];
             freq[nums[j]]++;
 
+
             if (j - i + 1 > k) {
                 curr_sum -= nums[i];
                 freq[nums[i]]--;
@@ -18,12 +19,11 @@ public:
                 i++;
             }
 
-            if (j - i + 1 == k){
-                if(freq.size()==k){
-                 max_sum = max(max_sum, curr_sum);
-                }
-            } 
-        }  
+            if (j - i + 1 == k && freq.size() == k) {
+                max_sum = max(max_sum, curr_sum);
+            }
+        }
+
         return max_sum;
     }
 };
