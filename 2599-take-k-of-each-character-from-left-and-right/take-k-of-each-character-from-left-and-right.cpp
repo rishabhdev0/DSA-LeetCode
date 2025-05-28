@@ -1,31 +1,37 @@
 class Solution {
 public:
+    bool isValid(unordered_map<char, int>& freq, int k) {
+        for (auto& entry : freq) {
+            if (entry.second < k)
+                return false;
+        }
+        return true;
+    }
+
     int takeCharacters(string s, int k) {
         int n = s.length();
-        int count_a = 0, count_b = 0, count_c = 0;
+        unordered_map<char, int> freq;
 
         for (char ch : s) {
-            if (ch == 'a') count_a++;
-            else if (ch == 'b') count_b++;
-            else count_c++;
+            freq[ch]++;
         }
-
-        if (count_a < k || count_b < k || count_c < k) {// if k>count we cannot dele
+        
+         if (freq['a'] < k || freq['b'] < k || freq['c'] < k) {
             return -1;
         }
 
+        if (!isValid(freq, k))
+            return -1;
+
         int i = 0, j = 0;
         int window_size = 0;
+        unordered_map<char, int> temp = freq;
 
         while (j < n) {
-            if (s[j] == 'a') count_a--;
-            else if (s[j] == 'b') count_b--;
-            else count_c--;
+            temp[s[j]]--;
 
-            while (i <= j && (count_a < k || count_b < k || count_c < k)) {
-                if (s[i] == 'a') count_a++;
-                else if (s[i] == 'b') count_b++;
-                else count_c++;
+            while (i <= j && !isValid(temp, k)) {
+                temp[s[i]]++;
                 i++;
             }
 
