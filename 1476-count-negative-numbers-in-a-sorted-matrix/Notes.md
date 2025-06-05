@@ -1,1 +1,1 @@
-<h2>count-negative-numbers-in-a-sorted-matrix Notes</h2><hr>[ Time taken: 6 hrs 5 m 26 s ]
+<h2>count-negative-numbers-in-a-sorted-matrix Notes</h2><hr>[ Time taken: 5 m 27 s ]
