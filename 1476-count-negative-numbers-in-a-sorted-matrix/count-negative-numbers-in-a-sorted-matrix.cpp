@@ -5,12 +5,18 @@ public:
         int m = grid[0].size();
         int count = 0;
         for(int i = 0;i<n;i++){
-            for(int j = 0;j<m;j++){
-                if(grid[i][j] < 0){
-                    count++;
+            int s =  0;
+            int e = grid[i].size()-1;
+            while(s<=e){
+                int mid = s+(e-s)/2;
+                if(grid[i][mid] < 0){
+                    e= mid-1;
+                }else{
+                    s= mid +1;
                 }
             }
+            count+=grid[i].size()-s;
         }
-        return count;
+   return count;
     }
 };
