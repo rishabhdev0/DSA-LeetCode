@@ -1,40 +1,27 @@
 class Solution {
-    private:
-    int find_max(vector<int>&nums){
-        int maxi=INT_MIN;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            maxi=max(nums[i],maxi);
+    bool isPossible(vector<int>& nums, int mid, int maxOperations) {
+        int count = 0;
+        for (int num : nums) {
+            count += (num - 1) / mid; 
+            if (count > maxOperations) return false;
         }
-        return maxi;
+        return true;
     }
 
-    int ispossible(vector<int>&nums,int value,int maxOperations){
-        int count = 0;
-       for (int num : nums) {
-            count += (num - 1) / value;  
-            if (count > maxOperations) return false;  
-        }
-        return count <= maxOperations;
-    }
 public:
     int minimumSize(vector<int>& nums, int maxOperations) {
-        int n=nums.size();
-        int s=1;
-        int e=find_max(nums);
-        int result=-1;
-        while(s<=e){
-            int mid=s+(e-s)/2;
-             if(ispossible(nums,mid,maxOperations)){
-            result=mid;
-             e=mid-1;
-        }
-        else {
-            s=mid+1;
-        }
-             }
-          
-        return result;
+        int left = 1;
+        int right = *max_element(nums.begin(), nums.end());
 
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (isPossible(nums, mid, maxOperations)) {
+                right = mid; 
+            } else {
+                left = mid + 1;  
+            }
+        }
+
+        return left;
     }
 };
