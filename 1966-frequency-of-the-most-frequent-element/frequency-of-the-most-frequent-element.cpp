@@ -5,12 +5,14 @@ public:
         int n = nums.size();
         int result = 0;
         int j = 0;
-        long long curr_sum = 0; // Use long long for large sum
+        long long curr_sum = 0; 
         
         for(int i = 0; i < n; i++) {
             curr_sum += nums[i];
-            long long ops = (long long)(i - j + 1) * nums[i] - curr_sum; // Ensure this is long long
-            
+            int window_size = i - j + 1;
+            long long total_needed = 1LL * window_size * nums[i];
+            long long ops = total_needed - curr_sum;
+
             while(ops > k) {
                 curr_sum -= nums[j];
                 j++;
