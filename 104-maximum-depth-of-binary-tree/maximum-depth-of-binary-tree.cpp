@@ -9,29 +9,46 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// class Solution {
+// public:
+//     int maxDepth(TreeNode* root) {
+//         //bfs
+//         // if (root == nullptr) {
+//         //     return 0;
+//         // }
+        
+//         // queue<TreeNode*> q;
+//         // q.push(root);
+//         // int depth = 0;
+
+//         // while (!q.empty()) {
+//         //     int size = q.size();
+//         //     while (size--) {
+//         //         TreeNode* node = q.front();
+//         //         q.pop();
+//         //         if (node->left) q.push(node->left);
+//         //         if (node->right) q.push(node->right);
+//         //     }
+//         //     depth++; 
+//         // }
+        
+//         // return depth;
+//     }
+// };    
+
+        // dfs
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
         if (root == nullptr) {
             return 0;
         }
-        
-        queue<TreeNode*> q;
-        q.push(root);
-        int depth = 0;
 
-        while (!q.empty()) {
-            int size = q.size();
-            while (size--) {
-                TreeNode* node = q.front();
-                q.pop();
-                if (node->left) q.push(node->left);
-                if (node->right) q.push(node->right);
-            }
-            depth++; 
-        }
+        int leftDepth = maxDepth(root->left);
+        int rightDepth = maxDepth(root->right);
         
-        return depth;
+        return 1 + max(leftDepth, rightDepth);
     }
 };
+
 
