@@ -11,7 +11,7 @@ public:
             if(st.empty()) {
                 result[i] = 0;
             } else {
-                result[i] = st.top() - i;  // Calculate days difference
+                result[i] = st.top() - i;  // day differnce
             }
             st.push(i);
         }
