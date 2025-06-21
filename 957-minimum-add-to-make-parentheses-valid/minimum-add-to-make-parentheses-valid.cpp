@@ -1,18 +1,23 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-       int size = 0;
-       int open = 0;
-       for(char &ch: s){
-        if(ch=='('){
-            size++;
-        }else if(size > 0){
-            size--;
-        }else{
-            // closing bracket for for no open bracket
-            open++;
+        int open = 0;
+        int result = 0;
+        int n = s.length(); 
+
+        for (int i = 0; i < n; i++) {
+            char ch = s[i];
+            if (ch == '(') {
+                open++;
+            } else if (ch == ')') {
+                if (open > 0) {
+                    open--;
+                } else {
+                    result++;
+                }
+            }
         }
-       } 
-       return size + open;
+
+        return result + open;
     }
 };
