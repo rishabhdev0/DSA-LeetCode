@@ -1,34 +1,28 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 private:
-    void inOrder(TreeNode* root, int sum, vector<int> temp, int targetSum,           vector<vector<int>>& result) {
-        if (!root) return;
+    void inOrder(TreeNode* root , int sum , vector<int> temp , int targetSum, vector<vector<int>> &result) {
+        if (root == nullptr) return;
+
         sum += root->val;
         temp.push_back(root->val);
 
-        if (!root->left && !root->right && sum == targetSum) {
-            result.push_back(temp);
-            return; // no more further recursion
+        // If it's a leaf node
+        if (root->left == nullptr && root->right == nullptr) {
+            if (sum == targetSum) {
+                result.push_back(temp);
+            }
+            return;
         }
 
-        inOrder(root->left, sum, temp, targetSum, result);
-        inOrder(root->right, sum, temp, targetSum, result);
+        inOrder(root->left , sum , temp, targetSum, result);
+        inOrder(root->right , sum , temp, targetSum, result);
     }
 
 public:
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>> result;
-        inOrder(root, 0, {}, targetSum, result);
+        vector<int> temp;
+        inOrder(root , 0 , temp, targetSum, result);
         return result;
     }
 };
