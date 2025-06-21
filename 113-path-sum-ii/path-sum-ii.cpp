@@ -1,28 +1,19 @@
 class Solution {
-private:
-    void inOrder(TreeNode* root , int sum , vector<int> temp , int targetSum, vector<vector<int>> &result) {
-        if (root == nullptr) return;
-
-        sum += root->val;
-        temp.push_back(root->val);
-
-        // If it's a leaf node
-        if (root->left == nullptr && root->right == nullptr) {
-            if (sum == targetSum) {
-                result.push_back(temp);
-            }
-            return;
-        }
-
-        inOrder(root->left , sum , temp, targetSum, result);
-        inOrder(root->right , sum , temp, targetSum, result);
-    }
-
 public:
-    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int>> result;
-        vector<int> temp;
-        inOrder(root , 0 , temp, targetSum, result);
-        return result;
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<vector<int> > paths;
+        vector<int> path;
+        findPaths(root, sum, path, paths);
+        return paths;  
+    }
+private:
+    void findPaths(TreeNode* node, int sum, vector<int>& path, vector<vector<int> >& paths) {
+        if (!node) return;
+        path.push_back(node -> val);
+        if (!(node -> left) && !(node -> right) && sum == node -> val)
+            paths.push_back(path);
+        findPaths(node -> left, sum - node -> val, path, paths);
+        findPaths(node -> right, sum - node -> val, path, paths);
+        path.pop_back();
     }
 };
