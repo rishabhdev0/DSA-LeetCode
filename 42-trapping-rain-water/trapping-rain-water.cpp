@@ -3,22 +3,27 @@ public:
     int trap(vector<int>& height) {
         int n = height.size();
         if (n == 0) return 0;
-        
-        int left = 0, right = n - 1;
-        int left_max = height[left], right_max = height[right];
-        int answer = 0;
-        
+
+        int left = 0;
+        int right = n - 1;
+        int maxLeftHeight = height[left];
+        int maxRightHeight = height[right];
+        int totalWaterTrapped = 0;
+
         while (left < right) {
-            if (left_max < right_max) {
+            if (maxLeftHeight < maxRightHeight) {
                 left++;
-                left_max = max(left_max, height[left]);
-                answer += left_max - height[left]; 
+                maxLeftHeight = max(maxLeftHeight, height[left]);
+                int waterAtCurrentBar = maxLeftHeight - height[left];
+                totalWaterTrapped += waterAtCurrentBar;
             } else {
                 right--;
-                right_max = max(right_max, height[right]);
-                answer += right_max - height[right]; 
+                maxRightHeight = max(maxRightHeight, height[right]);
+                int waterAtCurrentBar = maxRightHeight - height[right];
+                totalWaterTrapped += waterAtCurrentBar;
             }
         }
-        return answer;
+
+        return totalWaterTrapped;
     }
 };
