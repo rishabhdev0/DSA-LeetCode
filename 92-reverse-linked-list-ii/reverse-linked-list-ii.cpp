@@ -21,14 +21,13 @@ public:
         for(int i = 1;i<left;i++){
             prev = prev->next;
         }
-        ListNode* forward = nullptr;
         ListNode* curr = prev->next;
 
-     for(int i = left;i<right;i++){
-      forward = curr->next; 
-      curr->next = forward->next;
-      forward->next = prev->next;
-      prev->next = forward;
+     for(int i = 1 ;i<=right- left;i++){
+      ListNode* temp = prev->next; 
+      prev->next = curr->next;
+      curr->next = curr->next->next;
+      prev->next->next = temp;
      }
      return dummy_node->next;
     }
