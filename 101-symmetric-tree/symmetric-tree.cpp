@@ -10,26 +10,17 @@
  * };
  */
 class Solution {
-private:
-    bool is_symmetric(TreeNode* leftsub, TreeNode* rightsub) {
-        if (leftsub == nullptr && rightsub == nullptr)
-            return true;
+    bool dfs(TreeNode* left, TreeNode* right) {
+        if (left == nullptr && right == nullptr) return true;
+        if (left == nullptr || right == nullptr) return false;//one of them is null
+        if (left->val != right->val) return false;
 
-        if (leftsub == nullptr || rightsub == nullptr)
-            return false;
-
-        if (leftsub->val != rightsub->val)
-            return false;
-
-        return is_symmetric(leftsub->left, rightsub->right) &&
-               is_symmetric(leftsub->right, rightsub->left);
+        return dfs(left->left, right->right) && dfs(left->right, right->left);
     }
 
 public:
     bool isSymmetric(TreeNode* root) {
-        if (root == nullptr)
-            return true;
-
-        return is_symmetric(root->left, root->right);
+        if (root == nullptr) return true;
+        return dfs(root->left, root->right);
     }
 };
