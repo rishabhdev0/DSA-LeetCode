@@ -11,28 +11,23 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        //edge case all elment are same
-         if (head == nullptr) {
-            return nullptr;
-        }
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
 
-        // what if 1st elemnt is equal to val
-        while(head !=nullptr && head->val== val){
-            ListNode* deleted = head;
-            head = head->next;
-            delete deleted;
-        }
+        ListNode* temp = dummy; 
 
-        ListNode* curr = head;
-        while(curr != nullptr && curr->next !=nullptr){
-            if(curr->next->val == val){
-                ListNode* deleted = curr->next;
-                curr->next = curr->next->next;
-                delete deleted;
-            }else{
-                curr=curr->next;
+        while (temp->next != nullptr) {
+            if (temp->next->val == val) {
+                ListNode* toDelete = temp->next;
+                temp->next = temp->next->next;
+                delete toDelete;
+            } else {
+                temp = temp->next;
             }
         }
-        return head;
+
+        ListNode* newHead = dummy->next;
+        delete dummy;
+        return newHead;
     }
 };
