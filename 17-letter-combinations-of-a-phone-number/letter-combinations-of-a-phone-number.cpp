@@ -11,8 +11,9 @@ public:
         
         for (int i = 0; i < value.length(); i++) {
             output.push_back(value[i]);  
-            solve(digits, output, index + 1, ans, mapping); 
-            output.pop_back();  
+            solve(digits, output, index + 1, ans, mapping); // ind + 1 
+            // because we get "a" + now next string "d" = "ad";
+            output.pop_back(); // for backtrack  
         }
     }
 
