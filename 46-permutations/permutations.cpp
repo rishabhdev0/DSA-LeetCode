@@ -1,26 +1,27 @@
 class Solution {
 private:
+    void backtracking(vector<int>& nums, vector<int>& temp, vector<vector<int>>& result, unordered_set<int>& used) {
+        if(temp.size() == nums.size()) {
+            result.push_back(temp);
+            return;
+        }
 
-void solve(vector<int>nums, vector<vector<int>>&ans, int index){
-    if(index>=nums.size()){
-        ans.push_back(nums);
-        return;
+        for(int i = 0; i < nums.size(); i++) {
+            if(used.find(nums[i]) == used.end()) { //check if element present in set
+                temp.push_back(nums[i]);           //or not
+                used.insert(nums[i]);
+                backtracking(nums, temp, result, used);
+                temp.pop_back();
+                used.erase(nums[i]);
+            }
+        }
     }
-    for(int i=index;i<nums.size();i++){
-        swap(nums[index],nums[i]);
-        solve(nums,ans,index+1);
-        swap(nums[index],nums[i]);
-    }
-    // backtracking
-    //  swap(nums[index],nums[i]);
-}
-
-
 public:
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> ans;
-        int index=0;
-        solve(nums, ans,index);
-        return ans;
+        vector<vector<int>> result;
+        vector<int> temp;
+        unordered_set<int> used;
+        backtracking(nums, temp, result, used);
+        return result;
     }
 };
