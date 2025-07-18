@@ -1,28 +1,25 @@
 class Solution {
-public:
-    void solve(vector<int>& nums, vector<int>& output, int index, vector<vector<int>>& ans) {
-        if(index >= nums.size()) {
-            ans.push_back(output);  
+private:
+    void backtracking(vector<int>& nums, vector<vector<int>>& result, vector<int> temp, int idx) {
+        if (idx >= nums.size()) {
+            result.push_back(temp);
             return;
         }
-        
-        // Exclude current element
-        solve(nums, output, index + 1, ans);
-        
-        // Include current element
-        output.push_back(nums[index]);
-        solve(nums, output, index + 1, ans);
-        
-        
-        output.pop_back();
+
+        // do not pick current element
+        backtracking(nums, result, temp, idx + 1);
+
+        // pick current element
+        temp.push_back(nums[idx]); 
+        backtracking(nums, result, temp, idx + 1);
     }
 
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> ans;
-        vector<int> output;
+        vector<vector<int>> result; 
+        vector<int> temp;
         int index = 0;
-        solve(nums, output, index, ans);
-        return ans;
+        backtracking(nums, result, temp, index);
+        return result;
     }
 };
