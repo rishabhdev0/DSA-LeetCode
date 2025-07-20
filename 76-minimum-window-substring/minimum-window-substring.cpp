@@ -1,43 +1,39 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int m = s.length();
-        int n = t.length();
-        if (n > m) return "";
+        int n = s.length();
+        int m = t.length();
+        if (m > n) return "";
 
-        unordered_map<char, int> mp;
-        for (int i = 0; i < n; i++) {
-            mp[t[i]]++;
-        }
+        unordered_map<char, int> freq;
+        for (char c : t) freq[c]++;
 
-        int min_window = m + 1;
-        int start_index = 0;
-        int count_required = n;
+        int required = m;
         int i = 0, j = 0;
+        int min_len = n + 1;
+        int start = 0;
 
-        while (j < m) {
-            char curr = s[j];
-            if (mp[curr] > 0) {
-                count_required--;
+        while (j < n) {
+            if (freq[s[j]] > 0) {
+                required--;
             }
-            mp[curr]--;
+            freq[s[j]]--;
 
-            while (count_required == 0) {
-                int curr_window_size = j - i + 1;
-                if (min_window > curr_window_size) {
-                    min_window = curr_window_size;
-                    start_index = i;
+            while (required == 0) {
+                if (j - i + 1 < min_len) {
+                    min_len = j - i + 1;
+                    start = i;
                 }
 
-                mp[s[i]]++;
-                if (mp[s[i]] > 0) {
-                    count_required++;
+                freq[s[i]]++;
+                if (freq[s[i]] > 0) {
+                    required++;
                 }
                 i++;
             }
             j++;
         }
 
-        return min_window == m + 1 ? "" : s.substr(start_index, min_window);
+        return (min_len == n + 1) ? "" : s.substr(start, min_len);
     }
 };
