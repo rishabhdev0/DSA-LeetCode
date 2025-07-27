@@ -1,7 +1,7 @@
 class Solution {
 private:
-    bool isZero(const vector<int>& counter) {
-        for (int i : counter) {
+    bool isZero(const vector<int>& freq) {
+        for (int i : freq) {
             if (i != 0)
                 return false;
         }
@@ -14,20 +14,20 @@ public:
         vector<int> result;
         if (n < m) return result;
 
-        vector<int> counter(26, 0);
+        vector<int> freq(26, 0);
         for (int i = 0; i < m; i++) {
-            counter[p[i] - 'a']++;
+            freq[p[i] - 'a']++;
         }
 
         int i = 0, j = 0;
         while (j < n) {
-            counter[s[j] - 'a']--;
+            freq[s[j] - 'a']--;
 
             if (j - i + 1 == m) {
-                if (isZero(counter)) {
+                if (isZero(freq)) {
                     result.push_back(i);
                 }
-                counter[s[i] - 'a']++;
+                freq[s[i] - 'a']++;
                 i++;
             }
             j++;
