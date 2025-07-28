@@ -2,8 +2,8 @@ class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
         int n = s1.length();
-        int k = s2.length();
-        if (n > k) return false; //edge case s1 cant bigger than s2
+        int m = s2.length();
+        if (n > m) return false; //edge case s1 cant bigger than s2
 
         vector<int> freq(26, 0);
         vector<int> windowfreq(26, 0);
@@ -15,16 +15,15 @@ public:
 
         int i = 0;
         int j = 0;
-        while (j < k) {
-            windowfreq[s2[j] - 'a']++; // current element to the window
+        while (j < m) {
+            windowfreq[s2[j] - 'a']++; // current element to the windowfreq
 
-          // shrinking the window move the i pointer
             if (j - i + 1 > n) {
                 windowfreq[s2[i] - 'a']--; // remove the ith charcter 
                 i++;
             }
 
-            // condition check
+           // freq must be equal  to window so that all char matched
             if (j - i + 1 == n && freq == windowfreq) {
                 return true;
             }
