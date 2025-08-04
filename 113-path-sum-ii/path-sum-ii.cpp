@@ -1,19 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        vector<vector<int> > paths;
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        vector<vector<int>> result;
         vector<int> path;
-        findPaths(root, sum, path, paths);
-        return paths;  
+        dfs(root, targetSum, 0, path, result);
+        return result;
     }
+
 private:
-    void findPaths(TreeNode* node, int sum, vector<int>& path, vector<vector<int> >& paths) {
+    void dfs(TreeNode* node, int target, long long currSum, vector<int>& path, vector<vector<int>>& result) {
         if (!node) return;
-        path.push_back(node -> val);
-        if (!(node -> left) && !(node -> right) && sum == node -> val)
-            paths.push_back(path);
-        findPaths(node -> left, sum - node -> val, path, paths);
-        findPaths(node -> right, sum - node -> val, path, paths);
-        path.pop_back();
+
+        currSum += node->val;
+        path.push_back(node->val);
+
+        // If it's a leaf
+        if (!node->left && !node->right) {
+            if (currSum == target) {
+                result.push_back(path);
+            }
+        } else {
+            dfs(node->left, target, currSum, path, result);
+            dfs(node->right, target, currSum, path, result);
+        }
+
+        path.pop_back(); 
     }
 };
