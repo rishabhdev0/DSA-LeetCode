@@ -1,29 +1,25 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
-    private:
-    int dfs(TreeNode* root , int curr){
-        if(root == nullptr) return 0;
-        curr = (curr*10) + root->val;
-        if(root->left == nullptr && root->right == nullptr){
-            return curr;
+private:
+    int dfs(TreeNode* root, int sum) {
+        if (root == nullptr) return 0;
+
+        sum = sum * 10 + root->val;
+
+        // If it's a leaf node
+        if (root->left == nullptr && root->right == nullptr) {
+            return sum;
         }
-        int left = dfs(root->left , curr);
-        int right = dfs(root->right , curr);
+
+        // Recurse left and right
+        int left = dfs(root->left, sum);
+        int right = dfs(root->right, sum);
+
         return left + right;
     }
+
 public:
     int sumNumbers(TreeNode* root) {
-        int curr = 0;
-       return dfs(root, curr);
+        int sum = 0;
+        return dfs(root, sum); 
     }
 };
