@@ -1,10 +1,9 @@
 class Solution {
 public:
     bool isPowerOfThree(int n) {
-        if(n<=0) return false;
-        while(n%3==0){
-            n/=3;
-        }
-        return n==1; // did we reach 1 after divinding or not
+        if(n <= 0) return false; // zero and negative number
+        if(n==1) return true; // base case
+        if(n%3 != 0) return false; // not divisble by 3
+        return isPowerOfThree(n/3);
     }
 };
