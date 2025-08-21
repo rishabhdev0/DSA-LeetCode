@@ -11,25 +11,21 @@
  */
 class Solution {
 private:
-    vector<int> temp;
+    unordered_set<int> seen;
 
-    void dfs(TreeNode* root) {
-        if(root == nullptr) return;
-        dfs(root->left);
-        temp.push_back(root->val);   // in-order traversal sorted values
-        dfs(root->right);
+    // dfs now returns bool ✅
+    bool dfs(TreeNode* root, int k) {
+        if(root == nullptr) return false;   
+        if(seen.count(k - root->val)) {     
+            return true;
+        }
+        seen.insert(root->val);            
+
+        return dfs(root->left, k) || dfs(root->right, k);
     }
 
 public:
     bool findTarget(TreeNode* root, int k) {
-        dfs(root);
-        int left = 0, right = temp.size() - 1;
-        while(left < right) {
-            int sum = temp[left] + temp[right];
-            if(sum == k) return true;
-            else if(sum > k) right--;
-            else left++;
-        }
-        return false;
+        return dfs(root, k);               
     }
 };
