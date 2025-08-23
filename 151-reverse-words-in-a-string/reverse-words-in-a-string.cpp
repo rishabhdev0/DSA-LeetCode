@@ -8,14 +8,14 @@ public:
         int right = 0; // for swapping 
         while(i<n){
             while(i<n && s[i] !=' '){
-             s[right] = s[i];  // r ko i ki value assign kar do
+             s[right] = s[i];  //r ko i ki value assign kar do so we can later swap
              right++;
              i++;
             }
             if(left < right){
                 reverse(s.begin()+ left , s.begin()+right);
-                s[right++]=' ';  // har swap ke baad ek  extra space do
-                left = right;  // left = right karo for new rverse
+                s[right++]=' '; 
+                left = right;  // left = right karo for new words
             }
             i++;
         }
