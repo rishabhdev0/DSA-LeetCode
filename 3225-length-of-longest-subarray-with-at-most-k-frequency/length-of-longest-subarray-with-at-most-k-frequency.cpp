@@ -1,11 +1,4 @@
 class Solution {
-    // private:
-    // bool good_subarray(unordered_map<int , int>& freq , int k ){
-    //     for(auto& i : freq){
-    //         if(i.second > k)return false;
-    //     }
-    //     return true;
-    // }
 public:
     int maxSubarrayLength(vector<int>& nums, int k) {
         int n = nums.size();
