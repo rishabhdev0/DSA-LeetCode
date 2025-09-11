@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 private:
     bool isVowel(char ch) {
@@ -7,24 +10,20 @@ private:
 
 public:
     string sortVowels(string s) {
+        multiset<char> st;  // allows duplicates & keeps sorted order
         int n = s.length();
-        string vowels = "";
-
-        // collect all vowels
-        for (int i = 0; i < n; i++) {
+        for (int i = 0 ; i < n ; i++) {
             if (isVowel(s[i])) {
-                vowels += s[i];
+                st.insert(s[i]);
             }
         }
 
-        // sort the vowels
-        sort(vowels.begin(), vowels.end());
-
-        // place them back in sorted order
-        int idx = 0;
-        for (int i = 0; i < n; i++) {
+        // replace vowels with sorted ones
+        auto it = st.begin();
+        for (int i = 0; i < n ; i++) {
             if (isVowel(s[i])) {
-                s[i] = vowels[idx++];
+                s[i] = *it;  // take next smallest vowel
+                it++;
             }
         }
 
