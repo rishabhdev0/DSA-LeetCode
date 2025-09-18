@@ -1,16 +1,17 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int l1=s.length();
-        int l2=t.length();
-        int i=0;
-        int j=0;
-        while(i<l1 && j<l2){
-            if(s[i]==t[j]){
+        int n = s.length();
+        int m = t.length();
+        int i = 0, j = 0;
+
+        while (i < n && j < m) {
+            if (s[i] == t[j]) {
                 i++;
             }
             j++;
         }
-        return i==l1;
+
+        return i == n; // only true if all chars in s matched
     }
 };
