@@ -2,39 +2,28 @@ class Solution {
 public:
     vector<string> result;
 
-    bool is_balanced(string& curr) {
-        int open_count = 0;
-        for (char c : curr) {
-            if (c == '(') {
-                open_count++;
-            } else {
-                open_count--;
-            }
-            if (open_count < 0) return false; 
-        }
-        return open_count == 0;
-    }
-
-    void generate(string& curr, int n) {
+    void generate(string& curr, int n, int open, int closed) {
         if (curr.length() == 2 * n) {
-            if (is_balanced(curr)) {
-                result.push_back(curr);
-            }
+            result.push_back(curr);
             return;
         }
 
-        curr.push_back('(');
-        generate(curr, n);
-        curr.pop_back();
+        if (open < n) {
+            curr.push_back('(');
+            generate(curr, n, open + 1, closed);
+            curr.pop_back();
+        }
 
-        curr.push_back(')');
-        generate(curr, n);
-        curr.pop_back();
+        if (closed < open) {
+            curr.push_back(')');
+            generate(curr, n, open, closed + 1);
+            curr.pop_back();
+        }
     }
 
     vector<string> generateParenthesis(int n) {
         string curr = "";
-        generate(curr, n);
+        generate(curr, n, 0, 0);
         return result;
     }
 };
