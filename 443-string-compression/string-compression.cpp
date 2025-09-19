@@ -3,14 +3,14 @@ public:
     int compress(vector<char>& chars) {
         int n = chars.size();
         int index = 0; 
-        int i = 0;   
+        int j = 0;   
 
-        while (i < n) {
-            char currentChar = chars[i]; 
+        while (j < n) {
+            char currentChar = chars[j]; 
             int count = 0;              
 
-            while (i < n && chars[i] == currentChar) {
-                i++;
+            while (j < n && chars[j] == currentChar) {
+                j++;
                 count++;
             }
 
