@@ -1,24 +1,28 @@
 class Solution {
-private:
-    void solve(vector<int>& candidates, int target, int idx, vector<vector<int>>& result, vector<int>& temp, int sum) {
+public:
+    vector<int> temp;
+    vector<vector<int>> result;
+
+    void backtracking(vector<int>& candidates, int target, int idx, int sum) {
         if (sum == target) {
             result.push_back(temp);
             return;
         }
-        if (sum > target) return;
-
-        for (int i = idx; i < candidates.size(); i++) {
-            temp.push_back(candidates[i]);
-            solve(candidates, target, i, result, temp, sum + candidates[i]); 
-            temp.pop_back(); // backtrack
+        if (idx >= candidates.size() || sum > target) {
+            return;
         }
+
+        // Include the current element
+        temp.push_back(candidates[idx]);
+        backtracking(candidates, target, idx, sum + candidates[idx]);//same idx;
+        temp.pop_back();
+
+        // Exclude the current element
+        backtracking(candidates, target, idx + 1, sum);
     }
 
-public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> result;
-        vector<int> temp;
-        solve(candidates, target, 0, result, temp, 0);
+        backtracking(candidates, target, 0, 0);
         return result;
     }
 };
