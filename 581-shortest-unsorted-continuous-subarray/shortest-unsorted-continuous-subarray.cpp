@@ -7,12 +7,8 @@ public:
         if(original==nums) return 0;
         int i = 0;
         int j = n-1;
-        while(i<n && original[i]==nums[i]){
-            i++;
-        }
-        while(j>=0 && original[j]==nums[j]){
-            j--;
-        }
+        while(i<n && original[i]==nums[i])i++;
+        while(j>=0 && original[j]==nums[j]) j--;
         return j-i+1;
     }
 };
