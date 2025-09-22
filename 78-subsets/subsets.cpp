@@ -1,25 +1,21 @@
 class Solution {
-private:
-    void backtracking(vector<int>& nums, vector<vector<int>>& result, vector<int> temp, int idx) {
-        if (idx >= nums.size()) {
-            result.push_back(temp);
-            return;
-        }
-
-        // do not pick current element
-        backtracking(nums, result, temp, idx + 1);
-
-        // pick current element
-        temp.push_back(nums[idx]); 
-        backtracking(nums, result, temp, idx + 1);
-    }
-
 public:
+    vector<int> temp;
+    vector<vector<int>> result;
+    
+    void solve(vector<int>& nums, int start) {
+        // Add the current subset at every step
+        result.push_back(temp);
+        
+        for (int i = start; i < nums.size(); i++) {
+            temp.push_back(nums[i]);
+            solve(nums, i + 1);  // move and call to the next index recursion
+            temp.pop_back();
+        }
+    }
+    
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> result; 
-        vector<int> temp;
-        int index = 0;
-        backtracking(nums, result, temp, index);
+        solve(nums, 0);
         return result;
     }
 };
