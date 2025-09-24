@@ -1,36 +1,35 @@
 class Solution {
-private:
-    // Sliding window function to count pairs with distance <= Dist
-    int slidingWindow(vector<int> &nums, int Dist, int n) {
-        int i = 0;
-        int Pair_Count = 0;
-        
-        for (int j = 0; j < n; j++) {
-            while (nums[j] - nums[i] > Dist) {
-                i++;
-            }
-            Pair_Count += (j - i);
-        }
-        return Pair_Count;
-    }
-
 public:
     int smallestDistancePair(vector<int>& nums, int k) {
-        sort(nums.begin(), nums.end());
         int n = nums.size();
-        int s = 0;
-        int e = nums[n - 1] - nums[0];
-        int result = 0;
+        sort(nums.begin(), nums.end());
         
-        while (s <= e) {
-            int mid = s + (e - s) / 2;
-            if (slidingWindow(nums, mid, n) < k) {
-                s = mid + 1;
+        int left = 0;
+        int right = nums[n-1] - nums[0];
+        
+        // Binary search on possible distance values
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            
+            // Two-pointer technique to count pairs with distance <= mid
+            int count = 0;
+            int j = 0;
+            for (int i = 0; i < n; i++) {
+                // Move j forward until nums[j] - nums[i] > mid
+                while (j < n && nums[j] - nums[i] <= mid) {
+                    j++;
+                }
+                // All pairs (i, j-1), (i, j-2), ..., (i, i+1) satisfy the condition
+                count += j - i - 1;
+            }
+            
+            if (count >= k) {
+                right = mid;
             } else {
-                result = mid;
-                e = mid - 1;
+                left = mid + 1;
             }
         }
-        return result;
+        
+        return left;
     }
 };
