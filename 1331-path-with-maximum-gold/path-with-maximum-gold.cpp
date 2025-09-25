@@ -17,7 +17,7 @@ private:
         }
 
         grid[i][j] = originalGold; // backtrack
-        return originalGold + maxGold;
+        return originalGold + maxGold; 
     }
 
 public:
