@@ -16,6 +16,7 @@ public:
             children[i] += curr_cookies;  // Give cookies[idx] to child i
             backtrack(cookies, children, k, idx + 1); //explore
             children[i] -= curr_cookies;  // Backtrack
+            if(children[i] ==0) break;
         }
     }
 
