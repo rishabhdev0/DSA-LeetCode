@@ -2,21 +2,22 @@ class Solution {
 public:
     int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
         int n = nums.size();
-        int start = -1;
-        int prev = -1;
-        int result = 0;
-        for(int i = 0 ; i<n;i++){
-            if(nums[i]>right){
-                // reset position 
-                start = i; // position of the break point in array 
-                prev = i;
+        int count = 0;
+        int i = 0;
+        int j  = 0;
+        int lastValid = -1;
+        while(j < n){
+            if(nums[j] > right){
+                lastValid = -1;
+                i = j + 1;
+            }else if (nums[j] >= left){
+               lastValid = j;
             }
-            else if(nums[i]>=left){
-                // storing atleasst one element ending at ith pos
-                prev = i;
+            if (lastValid != -1){
+                count+=(lastValid - i + 1);
             }
-            result +=prev - start;
+            j++; 
         }
-        return result;
+        return count;
     }
 };
