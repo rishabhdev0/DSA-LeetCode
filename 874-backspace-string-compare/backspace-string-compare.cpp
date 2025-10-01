@@ -4,25 +4,29 @@ public:
         int n = s.length();
         int m = t.length();
 
-        vector<char> ss;
-        vector<char> tt;
+        vector<char>s1;
+        vector<char>s2;
 
-        for (int i = 0; i < n; i++) {
-            if (s[i] == '#') {
-                if (!ss.empty()) ss.pop_back();
-            } else {
-                ss.push_back(s[i]);
+        for(int i  = 0 ; i < n ; i++){
+            if(s[i] == '#'){
+                if(!s1.empty()){
+                    s1.pop_back();
+                }
+            }else {
+                s1.push_back(s[i]);
             }
         }
 
-        for (int j = 0; j < m; j++) {
-            if (t[j] == '#') {
-                if (!tt.empty()) tt.pop_back();
-            } else {
-                tt.push_back(t[j]);
+        for(int i = 0 ; i < m ; i++){
+            if(t[i] == '#'){
+                if(!s2.empty()){
+                    s2.pop_back();
+                }
+            }else {
+                s2.push_back(t[i]);
             }
         }
-        if(ss==tt) return true;
-        else return false;
+        if(s1 == s2) return true;
+        return false;
     }
 };
