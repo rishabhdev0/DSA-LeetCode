@@ -1,23 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int bagOfTokensScore(vector<int>& tokens, int power) {
         sort(tokens.begin(), tokens.end());
-        int score = 0, result = 0;
-        int i = 0, j = tokens.size() - 1;
+        int i = 0;
+        int j = (int)tokens.size() - 1;
+        int score = 0;       
+        int best = 0;        
 
         while (i <= j) {
             if (power >= tokens[i]) {
-                score++;
                 power -= tokens[i++];
-                result = max(result, score);
-            } 
+                ++score;
+                best = max(best, score);
+            }
+            // we have at least 1 score, sell the largest token
             else if (score > 0) {
-                power += tokens[j--];
+                power += tokens[j--]; 
                 --score;
-            } 
-            else break;
+            } else { // cannot buy and cannot sell 
+                break;
+            }
         }
-
-        return result;
+        return best; 
     }
 };
