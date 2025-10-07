@@ -9,7 +9,7 @@ public:
         for(int i = 0 ; i < n ; i++){
              if(rains[i] == 0){
                 Dry.insert(i);
-                result[i] = 1; // by default , will change later;
+                result[i] = 1; // by default 1 , will change later;
              }else {
                 // not a dry lake
                 int lake = rains[i];
