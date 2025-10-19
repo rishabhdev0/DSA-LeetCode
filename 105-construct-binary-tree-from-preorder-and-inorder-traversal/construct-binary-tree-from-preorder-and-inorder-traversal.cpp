@@ -16,16 +16,17 @@ private:
             return nullptr;
         }
 
-        int rootVal = preorder[idx++];
+        int rootVal = preorder[idx];
         TreeNode* root = new TreeNode(rootVal);
 
         // Find the index of rootVal in inorder 
         int i = start;
-        for (; i <= end; ++i) {
+        for (; i <= end; i++) {
             if (inorder[i] == rootVal) {
                 break;
             }
         }
+        idx++;
 
         root->left = solve(preorder, inorder, start, i - 1, idx);
         root->right = solve(preorder, inorder, i + 1, end, idx);
