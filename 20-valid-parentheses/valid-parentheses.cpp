@@ -7,18 +7,20 @@ public:
                 st.push(ch);
                 continue;
             }
-
-            if (st.empty()) return false;
-
+            
+            // If it's a closing bracket and stack is empty
+            if (st.empty()) {
+                return false;
+            }
             if ((ch == ')' && st.top() == '(') ||
                 (ch == ']' && st.top() == '[') ||
                 (ch == '}' && st.top() == '{')) {
                 st.pop();
             } else {
+                // Mismatched brackets
                 return false;
             }
         }
-
         return st.empty();
     }
 };
