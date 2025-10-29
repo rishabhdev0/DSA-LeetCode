@@ -9,7 +9,7 @@
  * };
  */
 class Solution {
-    public:
+    private:
     int lenghtofList(ListNode*head){
         int length = 0;
         while(head!=0){
@@ -21,16 +21,16 @@ class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
       int L = lenghtofList(head);
-      // case where we have to delete the head;
+      // edge case
       if(n==L){
         ListNode* temp = head->next;
         delete(head);
         return temp;
       }
-      int Travel_front = L-n;
+      int temp = L-n;
       ListNode* curr = head;
       ListNode* prev = nullptr;
-      while(Travel_front--){
+      while(temp--){
           prev = curr;
           curr = curr->next;
       }
