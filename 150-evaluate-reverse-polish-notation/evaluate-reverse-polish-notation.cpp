@@ -18,8 +18,8 @@ public:
                 int a = st.top(); st.pop();
                 int result = operation(a, b, token);
                 st.push(result);
-            } else {
-                st.push(stoi(token));
+             } else {
+                st.push(stoi(token)); // only number
             }
         }
         return st.top();
