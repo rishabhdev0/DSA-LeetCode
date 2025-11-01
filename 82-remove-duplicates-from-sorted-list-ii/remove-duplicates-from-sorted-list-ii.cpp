@@ -17,12 +17,10 @@ public:
        while(head!=nullptr){
         if(head->next != nullptr && head->val==head->next->val){
             while(head->next != nullptr && head->val == head->next->val){
-                head = head->next; // slipping nodes if  all equal
+                head = head->next; // skipping nodes if  all equal
             }
             prev->next = head->next;
-        }else{
-            prev = head;
-        }
+        }else prev = head;
         head = head->next;
        } 
        return dummy->next;
