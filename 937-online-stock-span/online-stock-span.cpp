@@ -15,4 +15,4 @@ public:
         st.push({price, span});
         return span;
     }
-};
+}; 
