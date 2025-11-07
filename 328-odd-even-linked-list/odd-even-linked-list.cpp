@@ -11,19 +11,25 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        if(head==nullptr || head->next==nullptr){
-            return head;
-        }
+        if (head == nullptr || head->next == nullptr) return head;
+        
         ListNode* odd = head;
         ListNode* even = head->next;
-        ListNode* evenhead = even;
-        while(even!=nullptr && even->next!=nullptr){
+        ListNode* evenHead = even;
+        
+        while (even && even->next) {
+            // Connect current odd to next odd
             odd->next = odd->next->next;
+            // Connect current even to next even
             even->next = even->next->next;
-           odd= odd->next;
-           even = even->next;
+            
+            // Move pointers forward
+            odd = odd->next;
+            even = even->next;
         }
-        odd->next=evenhead;
+        // Connect end of odd list to head of even list
+        odd->next = evenHead;
+        
         return head;
     }
 };
