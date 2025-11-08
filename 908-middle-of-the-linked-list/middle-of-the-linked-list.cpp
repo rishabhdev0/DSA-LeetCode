@@ -11,9 +11,7 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        if (head->next == nullptr) {
-            return head;
-        }
+        if (head->next == nullptr)return head;
         ListNode* slow = head;
         ListNode* fast = head;
 
