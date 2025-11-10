@@ -1,14 +1,18 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
+        unordered_map<int, int> freq;
         
-        for (int i = 0; i < nums.size() - 1; i += 3) {
-            if (nums[i] != nums[i + 1]) {
-                return nums[i];
+        // Count frequency of each number
+        for(int num : nums){
+            freq[num]++;
+        }
+        for(auto it = freq.begin(); it != freq.end(); it++){
+            if(it->second == 1){
+                return it->first;
             }
         }
         
-        return nums.back(); // last element
+        return -1; 
     }
 };
