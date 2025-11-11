@@ -1,30 +1,63 @@
+// class Solution {
+// public:
+//     void dfs(int src, int target, vector<vector<int>>& result, vector<int>& temp, vector<vector<int>>& adj) {
+//         if (src == target) {
+//             result.push_back(temp);
+//             return;
+//         }
+        
+//         for (auto neighbor : adj[src]) {
+//             temp.push_back(neighbor);
+//             dfs(neighbor, target, result, temp, adj);
+//             temp.pop_back();
+//         }
+//     }
+    
+//     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+//         int n = graph.size();
+//         vector<vector<int>> adj(n);
+        
+//         for (int i = 0; i < n; i++) {
+//             adj[i] = graph[i];
+//         }
+        
+//         vector<vector<int>> result;
+//         vector<int> temp;
+//         temp.push_back(0); 
+//         dfs(0, n - 1, result, temp, adj);
+//         return result;
+//     }
+// };
+
+ // breadth first search 
+
 class Solution {
 public:
-    void dfs(int src, int target, vector<vector<int>>& result, vector<int>& temp, vector<vector<int>>& adj) {
-        if (src == target) {
-            result.push_back(temp);
-            return;
-        }
-        
-        for (auto neighbor : adj[src]) {
-            temp.push_back(neighbor);
-            dfs(neighbor, target, result, temp, adj);
-            temp.pop_back();
-        }
-    }
-    
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         int n = graph.size();
-        vector<vector<int>> adj(n);
+        vector<vector<int>> result;
         
-        for (int i = 0; i < n; i++) {
-            adj[i] = graph[i];
+        // Queue stores {current_node, path}
+        queue<pair<int, vector<int>>> q;
+        q.push({0, {0}}); // Start from node 0 with path [0]
+        
+        while (!q.empty()) {
+            auto [currentNode, currentPath] = q.front();
+            q.pop();
+            
+ 
+            if (currentNode == n - 1) {
+                result.push_back(currentPath);
+                continue;
+            }
+            
+            for (int neighbor : graph[currentNode]) {
+                vector<int> newPath = currentPath; // new path explore
+                newPath.push_back(neighbor);
+                q.push({neighbor, newPath});
+            }
         }
         
-        vector<vector<int>> result;
-        vector<int> temp;
-        temp.push_back(0); 
-        dfs(0, n - 1, result, temp, adj);
         return result;
     }
 };
