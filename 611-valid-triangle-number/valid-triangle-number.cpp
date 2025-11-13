@@ -10,7 +10,7 @@ public:
             int i = 0, j = k - 1;
             while(i < j) {
                 if(nums[i] + nums[j] > nums[k]) {
-                    count += (j - i); // ✅ Correct
+                    count += (j - i);
                     j--;
                 } else {
                     i++;
