@@ -1,39 +1,39 @@
-class Solution {
-    private:
-    int find_max(vector<int>&nums){
-        int maxi=INT_MIN;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            maxi=max(nums[i],maxi);
-        }
-        return maxi;
-    }
+#include <cmath> // for ceil function
 
-int ispossible(vector<int>&nums,int divisor,int threshold){ 
-int n=nums.size();
-int sum=0;
-for (int num : nums) {
+class Solution {
+private:
+    bool canDivide(vector<int>& nums, int threshold, int divisor) {
+        int total = 0;
+        
+        for(int num : nums) {
             
-            sum += (num + divisor - 1) / divisor;
+            total += ceil((double)num / divisor);
+            
+            if(total > threshold) {
+                return false;
+            }
         }
-return sum<=threshold;
-}
+        
+        return total <= threshold;
+    }
 
 public:
     int smallestDivisor(vector<int>& nums, int threshold) {
-        int result=-1;
-        int s=1;
-        int e=find_max(nums);
-        while(s<=e){
-            int mid=s+(e-s)/2;
-            if(ispossible(nums,mid,threshold)){
-            result=mid;
-            e=mid-1;
-            }
-            else{
-                s=mid+1;
+        int low = 1;
+        int high = *max_element(nums.begin(), nums.end());
+        int result = high;
+        
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+            
+            if(canDivide(nums, threshold, mid)) {
+                result = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
             }
         }
+        
         return result;
     }
 };
