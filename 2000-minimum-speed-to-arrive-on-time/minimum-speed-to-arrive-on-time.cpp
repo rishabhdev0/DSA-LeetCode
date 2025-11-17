@@ -25,7 +25,7 @@ private:
         total_time += ceil((double)dist[i] / speed);
     }
     
-    total_time += (double)dist.back() / speed;
+    total_time += (double)dist.back() / speed;// for the last val we need actual value not c
     
     return total_time <= hour;
 }
@@ -33,7 +33,6 @@ private:
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) {
         int s = 1;
-        // int e = find_max(dist);
         int e = 1e7;
         int result = -1;
         while(s <= e){
