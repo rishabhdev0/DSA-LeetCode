@@ -3,7 +3,7 @@ private:
     bool canDistribued(vector<int>& quantities , int n , int mid){
         int stores_needed = 0;
         for(int quantity : quantities){
-            stores_needed += (quantity + mid - 1) / mid;  
+            stores_needed +=  (quantity + mid - 1) / mid;  
         }
         return stores_needed <= n;
     }
