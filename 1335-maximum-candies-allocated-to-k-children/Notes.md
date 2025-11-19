@@ -1,1 +1,1 @@
-<h2>maximum-candies-allocated-to-k-children Notes</h2><hr>[ Time taken: 2 hrs 36 m 50 s ]
+<h2>maximum-candies-allocated-to-k-children Notes</h2><hr>[ Time taken: 27 m 12 s ]
