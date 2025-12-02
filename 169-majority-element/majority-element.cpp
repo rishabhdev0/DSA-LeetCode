@@ -3,17 +3,17 @@ public:
     int majorityElement(vector<int>& nums) {
         unordered_map<int, int> freq;
         int n = nums.size();
-
-        for (auto num : nums) {
+        
+        for(int num : nums) {
             freq[num]++;
         }
-
-        for (int i = 0; i < n; i++) {
-            if (freq[nums[i]] > n / 2) {
-                return nums[i];
+        
+        for(auto it = freq.begin(); it != freq.end(); it++) {
+            if(it->second > n / 2) {
+                return it->first;
             }
         }
-
+        
         return -1; 
     }
 };
