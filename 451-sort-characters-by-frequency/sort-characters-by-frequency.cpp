@@ -12,7 +12,6 @@ public:
         priority_queue<p, vector<p>, lamda> pq;
         unordered_map<char, int> freq;
 
-        // Count frequency
         for (char c : s) {
             freq[c]++;
         }
@@ -23,7 +22,7 @@ public:
         }
 
         string result = "";
-        // Build result
+
         while (!pq.empty()) {
             p temp = pq.top();
             pq.pop();
