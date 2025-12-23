@@ -24,7 +24,7 @@ public:
             }
             
             // Current maximum is either:
-            // 1. Take just this event: value
+            // 1. Take just this event -> value
             // 2. Take this event + best previous non-overlapping event: value + maxSoFar
             maxSum = max(maxSum, value);
             maxSum = max(maxSum, value + maxSoFar);
