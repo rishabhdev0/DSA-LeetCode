@@ -5,28 +5,28 @@ public:
             return a[1] < b[1];
         });
         
-        int curr_pass = 0;
-        // Min-heap: {end_time, passengers}
+        int currentPassengers = 0;
+
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
         
-        for (const auto& trip : trips) {
-            int passengers = trip[0];
+        for (auto& trip : trips) {
+            int numPassengers = trip[0];
             int start = trip[1];
             int end = trip[2];
             
-            // Remove all completed trips before current pickup
+           
             while (!pq.empty() && pq.top().first <= start) {
-                curr_pass -= pq.top().second;
+                currentPassengers -= pq.top().second;
                 pq.pop();
             }
             
-            // Add current trip
-            curr_pass += passengers;
-            pq.push({end, passengers});
+            currentPassengers += numPassengers;
             
-            if (curr_pass > capacity) {
+            if (currentPassengers > capacity) {
                 return false;
             }
+            
+            pq.push({end, numPassengers});
         }
         
         return true;
