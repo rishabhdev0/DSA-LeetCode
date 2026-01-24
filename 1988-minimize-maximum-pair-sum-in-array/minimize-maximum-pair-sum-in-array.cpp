@@ -1,18 +1,19 @@
 class Solution {
 public:
     int minPairSum(vector<int>& nums) {
-        int n=nums.size();
-        sort(nums.begin(),nums.end());
-        int i =0;
-        int j=n-1;
-        int mini = 0;
-        while(i<=j){
-          int pair = nums[i] + nums[j];
-          i++;
-          j--;
-          mini = max(mini ,pair);
+        int n = nums.size();
+        int min_pair = 0;
+        sort(nums.begin() , nums.end());
+        // using 2 pointer approach;
+        int i = 0;
+        int j = n - 1;
+        while(i <= j){
+            int sum = nums[i] + nums[j];
+            i++;
+            j--;
+            min_pair = max(min_pair , sum);
         }
-        return mini;
+        return min_pair;
     }
 };
 
