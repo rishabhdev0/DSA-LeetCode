@@ -2,24 +2,20 @@ class Solution {
 public:
     int countBinarySubstrings(string s) {
         int n = s.length();
-        
-        int prev_group = 0;     
-        int curr_group = 1;      
-        int count_binary = 0;
-        
-        for(int i = 1; i < n; i++) {
-            if(s[i] == s[i - 1]) {
-                curr_group++;
-            } else {
-                count_binary += min(prev_group, curr_group);
-                prev_group = curr_group;
-                curr_group = 1;
+        int maxCount = 0;
+        int prev = 0;
+        int curr = 1;
+        for(int i = 1 ; i < n ; i++){
+            if(s[i-1] == s[i]){
+                curr++;
+            }else{
+                maxCount += min(curr , prev);
+                prev = curr;
+                curr = 1;
             }
         }
+        maxCount += min(prev , curr);
         
-        // adding last pair
-        count_binary += min(prev_group, curr_group);
-        
-        return count_binary;
+        return maxCount;
     }
 };
