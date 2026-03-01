@@ -2,20 +2,17 @@ class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
         int n = nums.size();
-        unordered_map<int, int> mp; // {mod -> freq}
-        mp[0] = 1;
-
+        unordered_map<int , int>freq;
+        freq[0] = 1;
+        long long sum = 0;
         int count = 0;
-        int sum = 0;
-
-        for (int i = 0; i < n; i++) {
+        for(int i = 0 ; i < n ; i++){
             sum += nums[i];
             int mod = ((sum % k) + k) % k;
-
-            if (mp.find(mod) != mp.end()) {
-                count += mp[mod];
+            if(freq.find(mod) != freq.end()){
+                 count += freq[mod];
             }
-            mp[mod]++;
+            freq[mod]++;
         }
         return count;
     }
