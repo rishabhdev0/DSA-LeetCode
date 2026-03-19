@@ -4,7 +4,6 @@ public:
         int n = nums.size();
         sort(nums.begin(), nums.end());
 
-        // Build unique array correctly
         vector<int> unique;
         unique.push_back(nums[0]);
         for(int i = 1; i < n; i++) {
