@@ -1,42 +1,42 @@
 class Solution {
 public:
     int maxConsecutiveAnswers(string answerKey, int k) {
-        // case 1 converting all FALSE into TRUE
-        int n=answerKey.length();
-        int i=0;
-        int j=0;
-        int count_false=0;
-        int result =0;
-        while(j<n){
-            if(answerKey[j]=='F'){
-                count_false++;
-            }
-            while(count_false > k){
-                if(answerKey[i]=='F'){
-                    count_false--;
-                }
+        int n = answerKey.length();
+
+        // Case 1: Make all 'T'
+        int i = 0, j = 0;
+        int false_count = 0;
+        int all_true = 0;
+
+        while (j < n) {
+            if (answerKey[j] == 'F') false_count++;
+
+            while (false_count > k) {
+                if (answerKey[i] == 'F') false_count--;
                 i++;
             }
-            result = max(result , j-i+1);
+
+            all_true = max(all_true, j - i + 1);
             j++;
         }
-        // case 2 true into false
-         i = 0;
-         j = 0;
-        int count_true=0;
-         while(j<n){
-            if(answerKey[j]=='T'){
-                count_true++;
-            }
-            while(count_true > k){
-                if(answerKey[i]=='T'){
-                    count_true--;
-                }
+
+        // Case 2: Make all 'F'
+        i = 0, j = 0;
+        int true_count = 0;
+        int all_false = 0;
+
+        while (j < n) {
+            if (answerKey[j] == 'T') true_count++;
+
+            while (true_count > k) {
+                if (answerKey[i] == 'T') true_count--;
                 i++;
             }
-            result = max(result , j-i+1);
+
+            all_false = max(all_false, j - i + 1);
             j++;
         }
-         return result;
+
+        return max(all_true, all_false);
     }
 };
