@@ -2,37 +2,25 @@ class Solution {
 public:
     int takeCharacters(string s, int k) {
         int n = s.length();
-        int count_a = 0, count_b = 0, count_c = 0; //deleted count 
-
-        for (char ch : s) {
-            if (ch == 'a') count_a++;
-            else if (ch == 'b') count_b++;
-            else count_c++;
+        vector<int>count(3 , 0);
+        for(char ch : s){
+            count[ch - 'a']++;
         }
-
-        if (count_a < k || count_b < k || count_c < k) {// if k>count we cannot dele
+        if(count[0] < k || count[1] < k || count[2] < k){
             return -1;
         }
-
-        int i = 0, j = 0;
-        int window_size = 0;
-
-        while (j < n) {
-            if (s[j] == 'a') count_a--;
-            else if (s[j] == 'b') count_b--;
-            else count_c--;
-
-            while (i <= j && (count_a < k || count_b < k || count_c < k)) {
-                if (s[i] == 'a') count_a++;
-                else if (s[i] == 'b') count_b++;
-                else count_c++;
+        int i = 0;
+        int j = 0;
+        int taken = n;
+        while(j < n){
+            count[s[j] - 'a']--;
+            while(count[0] < k || count[1] < k || count[2] < k){
+                count[s[i] - 'a']++;
                 i++;
             }
-
-            window_size = max(window_size, j - i + 1);
+            taken = min(taken , n - (j - i + 1));
             j++;
         }
-
-        return n - window_size;
+        return taken;
     }
 };
