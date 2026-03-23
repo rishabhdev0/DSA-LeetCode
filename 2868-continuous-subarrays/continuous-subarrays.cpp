@@ -3,20 +3,21 @@ public:
     long long continuousSubarrays(vector<int>& nums) {
         int n = nums.size();
         map<int,int> freq;
-        int left = 0, right = 0;
+        int i = 0, j = 0;
 
         long long count = 0;
-        while(right < n){
-            freq[nums[right]]++;
+
+        while(j < n){
+            freq[nums[j]]++;
             while(freq.rbegin()->first - freq.begin()->first > 2){
-                freq[nums[left]]--;
-                if(freq[nums[left]] == 0){
-                    freq.erase(nums[left]);
+                freq[nums[i]]--;
+                if(freq[nums[i]] == 0){
+                    freq.erase(nums[i]);
                 }
-                left++;
+                i++;
             }
-            count += right-left+1;
-            right++;
+            count += j-i+1;
+            j++;
         }
         return count;
     }
