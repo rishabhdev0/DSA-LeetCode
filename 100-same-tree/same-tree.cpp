@@ -1,26 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        if (p == nullptr && q == nullptr) return true;
-        if (p == nullptr || q == nullptr) return false;
-        
-        queue<pair<TreeNode*, TreeNode*>> que;
-        que.push({p, q});
-        
-        while (!que.empty()) {
-            auto pr = que.front(); que.pop();
-            TreeNode* a = pr.first;
-            TreeNode* b = pr.second;
-            
-            if (a == nullptr && b == nullptr) continue;
-            if (a == nullptr || b == nullptr) return false;
-            if (a->val != b->val) return false;
-            
-            // push corresponding children for later comparison
-            que.push({a->left,  b->left});
-            que.push({a->right, b->right});
-        }
-        
-        return true;
+        // Case 1: both null
+        if(p == nullptr && q == nullptr) return true;
+
+        // Case 2: one null
+        if(p == nullptr || q == nullptr) return false;
+
+        // Case 3: value mismatch
+        if(p->val != q->val) return false;
+
+        //  check left and right
+        return isSameTree(p->left, q->left) &&  isSameTree(p->right, q->right);
     }
 };
