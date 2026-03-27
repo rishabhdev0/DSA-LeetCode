@@ -24,7 +24,7 @@ public:
             }
 
             result.push_back(level);
-            leftToRight = !leftToRight; // flip direction
+            leftToRight = !leftToRight; 
         }
 
         return result;
