@@ -10,20 +10,14 @@
  * };
  */
 class Solution {
-private:
-    void dfs(TreeNode* root, int &count) {
-        if (root == nullptr) {
-            return;
-        }
-        count++; // Count current node
-        dfs(root->left, count);
-        dfs(root->right, count);
-    }
-
 public:
+   int dfs(TreeNode* root){
+    if(root == nullptr) return 0;
+     int left = dfs(root->left);
+     int right = dfs(root->right);
+     return  1 + left + right ;
+   }
     int countNodes(TreeNode* root) {
-        int count = 0;
-        dfs(root, count);
-        return count;
+        return dfs(root);
     }
 };
