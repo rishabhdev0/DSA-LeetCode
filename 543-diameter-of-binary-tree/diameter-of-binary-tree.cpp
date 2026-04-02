@@ -16,11 +16,10 @@ private:
             return 0;
         }
 
-        int lh = find_diameter(root->left, maxi);   // left height
-        int rh = find_diameter(root->right, maxi);  // right height
+        int lh = find_diameter(root->left, maxi);  
+        int rh = find_diameter(root->right, maxi);  
 
-        // update maximum diameter seen so far
-        maxi = max(maxi, lh + rh);
+        maxi = max(maxi, lh + rh); //uss node tak ka diamter nikal lo 
 
         // return height of current node
         return 1 + max(lh, rh);
