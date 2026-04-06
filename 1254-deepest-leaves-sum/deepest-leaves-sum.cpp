@@ -1,26 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    int deepestLeavesSum(TreeNode* root) {
-        if(root == nullptr) return 0;
+    int maxDepth = 0;
+    int sum = 0;
 
-        int sum = 0;
-        queue<TreeNode*> que;
-        que.push(root);
+    void dfs(TreeNode* root, int depth) {
+        if (!root) return;
 
-        while(!que.empty()) {
-            int n = que.size();
-            sum = 0;  // reset sum for this level
-
-            for(int i = 0; i < n; i++) {
-                TreeNode* node = que.front();
-                que.pop();
-
-                sum += node->val;
-
-                if(node->left) que.push(node->left);
-                if(node->right) que.push(node->right);
+        if (!root->left && !root->right) {
+            if (depth > maxDepth) {
+                maxDepth = depth;
+                sum = root->val;
+            } else if (depth == maxDepth) {
+                sum += root->val;
             }
         }
-        return sum;  
+
+        dfs(root->left, depth + 1);
+        dfs(root->right, depth + 1);
+    }
+
+    int deepestLeavesSum(TreeNode* root) {
+        dfs(root, 0);
+        return sum;
     }
 };
