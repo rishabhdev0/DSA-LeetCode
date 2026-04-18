@@ -14,12 +14,14 @@ public:
         for (int i = 0; i < tokens.size(); i++) {
             string token = tokens[i];
             if (token == "+" || token == "-" || token == "*" || token == "/") {
-                int b = st.top(); st.pop();
-                int a = st.top(); st.pop();
+                int b = st.top(); 
+                st.pop();
+                int a = st.top();
+                 st.pop();
                 int result = operation(a, b, token);
                 st.push(result);
              } else {
-                st.push(stoi(token)); // only number
+                st.push(stoi(token)); 
             }
         }
         return st.top();
