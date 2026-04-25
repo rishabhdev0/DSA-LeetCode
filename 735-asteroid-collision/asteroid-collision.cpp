@@ -1,30 +1,32 @@
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
-        vector<int> st;
-        
-        for(int a : asteroids) {
-         
-            while(!st.empty() && st.back() > 0 && a < 0) {
-                int sum = st.back() + a;
-                
-                if(sum > 0) {       // st.top() wins 
-                    a=0;            // no need to push
-                } 
-                else if(sum < 0) {  // Current wins
-                    st.pop_back();  // pop the element
-                } 
-                else {              // Both destroyed
-                    st.pop_back();  // no need to  push and pop the element
-                    a=0;
+        int n = asteroids.size();
+        stack<int>st;
+        for(int i = 0 ; i < n ; i++){
+            while(!st.empty() && st.top() > 0 && asteroids[i] < 0){
+                int sum = st.top() + asteroids[i];
+                if(sum < 0){
+                    st.pop();
+                }else if(sum > 0){
+                    asteroids[i] = 0;
+                }else{
+                    st.pop();
+                    asteroids[i] = 0;
                 }
             }
-            
-            if(a != 0) {  //if the asteroid didnt colloid
-                st.push_back(a);
+            if(asteroids[i] != 0){
+                st.push(asteroids[i]);
             }
         }
-        
-        return st;
+        int si = st.size();
+        vector<int>result(si);
+        int last = si - 1;
+        while(!st.empty()){
+            result[last] = st.top();
+            st.pop();
+            last--;
+        }
+        return result;
     }
 };
