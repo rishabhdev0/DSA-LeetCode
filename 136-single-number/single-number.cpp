@@ -1,12 +1,12 @@
 class Solution {
 public:
-    int singleNumber(vector<int>& nums) { 
-        // using XOR opertor 
+    int singleNumber(vector<int>& nums) {
         int n = nums.size();
-        int answer = 0;
-        for(int i = 0;i < n ; i++){
-            answer^=nums[i];
+        int result = 0 ;
+        //using xor operator
+        for(int i = 0 ; i < n ; i++){
+            result^=nums[i];
         }
-        return answer;
+        return result;
     }
 };
