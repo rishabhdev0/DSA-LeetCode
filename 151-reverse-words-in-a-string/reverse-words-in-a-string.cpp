@@ -2,23 +2,29 @@ class Solution {
 public:
     string reverseWords(string s) {
         int n = s.length();
-        reverse(s.begin(),s.end());
-        int i = 0;// for looping 
-        int left = 0;
-        int right = 0; // for swapping 
-        while(i<n){
-            while(i<n && s[i] !=' '){
-             s[right] = s[i];  //r ko i ki value assign kar do so we can later swap
-             right++;
-             i++;
-            }
-            if(left < right){
-                reverse(s.begin()+ left , s.begin()+right);
-                s[right++]=' '; 
-                left = right;  // left = right karo for new words
-            }
-            i++;
+        string result = "";
+       for(int i = n - 1 ; i>=0 ; i --){
+        while(i >= 0 &&  s[i] == ' '){
+            i--;
         }
-     return s.substr(0, right-1);
+        
+         if(i < 0)
+                break;
+            
+          int j = i;
+          while(j >= 0 && s[j] != ' '){
+             j--;
+          }
+          string sub = s.substr(j+1 , i - j);
+          result += sub;
+          result += ' ';
+          i = j;
+       }
+
+       if(!result.empty()){
+        result.pop_back();
+       }
+
+       return result;
     }
 };
