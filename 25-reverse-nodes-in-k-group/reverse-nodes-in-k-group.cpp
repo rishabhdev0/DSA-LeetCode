@@ -10,42 +10,60 @@
  */
 class Solution {
 public:
-    ListNode* Kreverse(ListNode* head, int k) {
-        if (head == nullptr) {
-            return nullptr;
+
+    int len(ListNode* head){
+        int counter = 0;
+
+        while(head != nullptr){
+            counter++;
+            head = head->next;
         }
 
-        ListNode* temp = head;
-        for (int i = 0; i < k; i++) {
-            if (temp == nullptr) {
-                return head; 
-            }
-            temp = temp->next;
-        }
-
-       //reversing the first k nodes 
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
-        ListNode* forward = nullptr;
-        int count = 0;
-
-        while (curr != nullptr && count < k) {
-            forward = curr->next; 
-            curr->next = prev;    
-            prev = curr;         
-            curr = forward;       
-            count++;
-        }
-        //  now connect the head t this using recursion call
-        if (forward != nullptr) {
-            head->next = Kreverse(forward, k);
-        }
-
-        return prev;
+        return counter;
     }
 
-public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        return Kreverse(head, k);
+
+        int N = len(head);
+
+        int group = N / k;
+
+        ListNode* prevHead = nullptr;
+        ListNode* currHead = head;
+
+        ListNode* answer = nullptr;
+
+        for(int i = 0 ; i < group ; i++){
+
+            ListNode* prev = nullptr;
+            ListNode* curr = currHead;
+            ListNode* nextNode = nullptr;
+
+            for(int j = 0 ; j < k ; j++){
+
+                nextNode = curr->next;
+
+                curr->next = prev;
+
+                prev = curr;
+
+                curr = nextNode;
+            }
+
+            // first group
+            if(prevHead == nullptr){
+                answer = prev;
+            }
+            else{
+                prevHead->next = prev;
+            }
+
+            prevHead = currHead;
+            currHead = curr;
+        }
+
+        prevHead->next = currHead;
+
+        return answer;
     }
 };
