@@ -11,23 +11,36 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
+
         ListNode* small = new ListNode(0);
-        ListNode* greater = new ListNode(0);
+        ListNode* big = new ListNode(0);
+
         ListNode* small_ptr = small;
-        ListNode* greater_ptr = greater;
-        
-        while(head) {
-            if(head->val < x) {
+        ListNode* big_ptr = big;
+
+        while(head != nullptr){
+
+            if(head->val < x){
+
                 small_ptr->next = head;
                 small_ptr = small_ptr->next;
-            } else {
-                greater_ptr->next = head;
-                greater_ptr = greater_ptr->next;
+
             }
+            else{
+
+                big_ptr->next = head;
+                big_ptr = big_ptr->next;
+            }
+
             head = head->next;
         }
-        small_ptr->next = greater->next;  
-        greater_ptr->next = nullptr;
+
+        // important
+        big_ptr->next = nullptr;
+
+        // connect lists
+        small_ptr->next = big->next;
+
         return small->next;
     }
 };
