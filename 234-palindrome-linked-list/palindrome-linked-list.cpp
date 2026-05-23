@@ -9,44 +9,42 @@
  * };
  */
 class Solution {
-    private:
-    ListNode* middle(ListNode*head){
-        ListNode*slow = head;
-        ListNode*fast = head;
-        while(fast!=nullptr && fast->next!=nullptr){
-            slow=slow->next;
-            fast=fast->next->next;
-      }
-      return slow;
-}
-
-ListNode* reverse(ListNode*head){
-    ListNode*prev=nullptr;
-    ListNode*curr=head;
-    while(curr!=nullptr){
-        ListNode*forward=curr->next;
-        curr->next=prev;
-        prev=curr;
-        curr=forward;
-    }
-    return prev;
-}
 public:
-    bool isPalindrome(ListNode* head) {
-       if(head==nullptr || head->next==nullptr){
-        return true;
-       } 
-    ListNode*mid = middle(head);
-    ListNode*head1 = head;
-    ListNode*head2 = reverse(mid);
-    while(head1!=nullptr && head2!=nullptr){
-        if(head1->val!=head2->val){
-            return false;
+    ListNode* getMiddle(ListNode* head){
+        ListNode* slow = head;
+        ListNode* fast  = head;
+        while(fast && fast->next){
+            slow = slow -> next;
+            fast = fast -> next -> next;
         }
-        head1=head1->next;
-        head2=head2->next;
-       
+        return slow;
     }
-       return true;
+
+    ListNode* reverse(ListNode* head){
+       ListNode* prev = nullptr;
+       ListNode* curr = head;
+       while(curr != nullptr){
+          ListNode* forward = curr -> next;
+          curr -> next = prev;
+          prev = curr;
+          curr = forward;
+       }
+       return prev;
+    }
+
+
+    bool isPalindrome(ListNode* head) {
+        if(head == nullptr || head -> next == nullptr) return true;
+        ListNode* start = head;
+        ListNode* middle = getMiddle(head);
+        ListNode* end = reverse(middle);
+        while(start != nullptr  && end != nullptr){
+            if(start -> val != end -> val){
+                return false;
+            }
+            start = start -> next;
+            end = end -> next;
+        }
+        return true;
     }
 };
