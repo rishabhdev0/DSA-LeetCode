@@ -23,6 +23,5 @@ public:
 
     bool isBalanced(TreeNode* root) {
         return dfs(root) != -1;
-
     }
 };
