@@ -4,6 +4,7 @@ private:
         long long allocate = 0;
         for (int candy : candies) {
             allocate += candy  / divisor;
+            
         }
         return allocate >= k;  
     }
