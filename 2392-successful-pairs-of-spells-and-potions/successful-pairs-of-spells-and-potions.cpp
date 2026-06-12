@@ -3,26 +3,28 @@ public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
         int n = spells.size();
         int m = potions.size();
+
         sort(potions.begin(), potions.end());
-        vector<int> result(n, 0);
+
+        vector<int> result(n);
+
         for (int i = 0; i < n; i++) {
-            int left = 0;
-            int right = m - 1;            
-            int validIndex = -1;
-            while (left <= right) {
-                int mid = left + (right - left) / 2;
-                long long product = 1LL * spells[i] * potions[mid]; 
-                if (product >= success) {
-                    validIndex = mid;
-                    right = mid - 1;
+            int start = 0;
+            int end = m - 1;
+
+            while (start <= end) {
+                int mid = start + (end - start) / 2;
+
+                if (1LL * spells[i] * potions[mid] >= success) {
+                    end = mid - 1;
                 } else {
-                    left = mid + 1;
+                    start = mid + 1;
                 }
             }
-            if(validIndex != -1){
-                result[i] = m - validIndex;
-            }
+
+            result[i] = m - start;
         }
+
         return result;
     }
 };
