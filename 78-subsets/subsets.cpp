@@ -1,21 +1,19 @@
 class Solution {
 public:
-    vector<int> temp;
-    vector<vector<int>> result;
-    
-    void solve(vector<int>& nums, int start) {
-        // Add the current subset at every step
+    vector<int>temp;
+    vector<vector<int>>result;
+
+    void backtracking(vector<int>& nums , int idx){
         result.push_back(temp);
-        
-        for (int i = start; i < nums.size(); i++) {
+
+        for(int i = idx ; i < nums.size() ; i++){
             temp.push_back(nums[i]);
-            solve(nums, i + 1);  // move and call to the next index recursion
+            backtracking(nums , i + 1);
             temp.pop_back();
         }
     }
-    
     vector<vector<int>> subsets(vector<int>& nums) {
-        solve(nums, 0);
+        backtracking(nums , 0);
         return result;
     }
 };
