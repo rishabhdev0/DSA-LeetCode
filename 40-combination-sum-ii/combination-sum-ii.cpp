@@ -1,36 +1,28 @@
 class Solution {
-private:
-    void backtracking(vector<int>& candidates, int target, int sum, int idx, 
-                      vector<int>& temp, vector<vector<int>>& result, vector<bool>& visited) {
-        if (sum == target) {
+public:
+    vector<vector<int>> result;
+    vector<int> temp;
+
+    void backtracking(vector<int>& nums, int idx, int target) {
+        if (target == 0) {
             result.push_back(temp);
             return;
         }
-        if (sum > target) return;
 
-        for (int i = idx; i < candidates.size(); i++) {
-            // Skip duplicates
-            if (i > 0 && candidates[i] == candidates[i - 1] && !visited[i - 1]) continue;
-            if (visited[i]) continue;
+        if (target < 0) return;
 
-            visited[i] = true;
-            temp.push_back(candidates[i]);
+        for (int i = idx; i < nums.size(); i++) {
+            if (i > idx && nums[i] == nums[i - 1]) continue;
 
-            backtracking(candidates, target, sum + candidates[i], i + 1, temp, result, visited);
-
-            visited[i] = false;
+            temp.push_back(nums[i]);
+            backtracking(nums, i + 1, target - nums[i]);
             temp.pop_back();
         }
     }
 
-public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end()); // to group duplicates
-        vector<vector<int>> result;
-        vector<int> temp;
-        vector<bool> visited(candidates.size(), false);
-
-        backtracking(candidates, target, 0, 0, temp, result, visited);
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        backtracking(nums, 0, target);
         return result;
     }
 };
