@@ -1,32 +1,28 @@
 class Solution {
 public:
-    typedef pair<char, int> p;
-
-    struct lamda {
-        bool operator()(p &p1, p &p2) {
-            return p1.second < p2.second; // max-heap
-        }
-    };
-
     string frequencySort(string s) {
-        priority_queue<p, vector<p>, lamda> pq;
         unordered_map<char, int> freq;
 
-        for (char c : s) {
-            freq[c]++;
+        for (char ch : s) {
+            freq[ch]++;
         }
 
-        // Push into priority queue
-        for (auto &it : freq) {
-            pq.push({it.first, it.second});
+        priority_queue<pair<int, char>> pq;
+
+        for (auto it : freq) {
+            pq.push({it.second, it.first});   // {frequency, character}
         }
 
         string result = "";
 
         while (!pq.empty()) {
-            p temp = pq.top();
+            auto top = pq.top();
             pq.pop();
-            result+=string(temp.second, temp.first); 
+
+            int times = top.first;
+            char ch = top.second;
+
+            result += string(times, ch);
         }
 
         return result;
