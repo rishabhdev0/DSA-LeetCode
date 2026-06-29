@@ -1,32 +1,29 @@
 class Solution {
 public:
     string reorganizeString(string s) {
-        int n = s.length();
-        vector<int> freq(26, 0);
-
+        unordered_map<char, int> freq;
+       int n = s.length();
         for (char ch : s) {
-            freq[ch - 'a']++;
-            if (freq[ch - 'a'] > (n + 1) / 2) {
+            freq[ch]++;
+            if(freq[ch] > (n + 1) / 2){
                 return "";
             }
         }
 
-        priority_queue<pair<int, char>> maxHeap;
+        priority_queue<pair<int, char>> pq;
 
-        for (int i = 0; i < 26; i++) {
-            if (freq[i] > 0) {
-                maxHeap.push({freq[i], char('a' + i)});
-            }
+        for (auto it : freq) {
+            pq.push({it.second, it.first});
         }
 
         string result = "";
 
-        while (maxHeap.size() > 1) {
-            auto first = maxHeap.top();
-            maxHeap.pop();
+        while (pq.size() > 1) {
+            auto first = pq.top();
+            pq.pop();
 
-            auto second = maxHeap.top();
-            maxHeap.pop();
+            auto second = pq.top();
+            pq.pop();
 
             result += first.second;
             result += second.second;
@@ -35,16 +32,16 @@ public:
             second.first--;
 
             if (first.first > 0) {
-                maxHeap.push(first);
+                pq.push(first);
             }
 
             if (second.first > 0) {
-                maxHeap.push(second);
+                pq.push(second);
             }
         }
 
-        if (!maxHeap.empty()) {
-            result += maxHeap.top().second;
+        if (!pq.empty()) {
+           result += pq.top().second;
         }
 
         return result;
