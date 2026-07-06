@@ -1,39 +1,31 @@
 class Solution {
 public:
-    int digitSum(int num) {
+    int convert(int num){
         int sum = 0;
-        while (num > 0) {
+        while(num > 0){
             sum += num % 10;
-            num /= 10;
+            num/=10;
         }
         return sum;
     }
-    
+
     int maximumSum(vector<int>& nums) {
-        unordered_map<int, pair<int, int>> groups;//( digit ->{largest, second);
-        
-        for (int num : nums) {
-            int sum = digitSum(num);
-            auto& [first, second] = groups[sum];
-            
-            if (num > first) {
-                second = first;
-                first = num;
-            } else if (num > second) {
-                second = num;
-            }
-        }
-        
+        int n = nums.size();
+        unordered_map<int , int>freq;
         int maxSum = -1;
-        for (auto& [digitSum, numsPair] : groups) {
-            auto& [first, second] = numsPair;
-            if (second > 0) { 
-                maxSum = max(maxSum, first + second);
-            }
+
+        for(int i = 0 ; i < n ; i++){
+             int digitSum = convert(nums[i]);
+
+             if(freq.count(digitSum)){
+                maxSum = max(maxSum , nums[freq[digitSum]] + nums[i]);
+                if(nums[i] > nums[freq[digitSum]]){
+                    freq[digitSum] = i; // new i
+                }
+             }else{
+                freq[digitSum] = i;
+             }
         }
-        
         return maxSum;
     }
 };
-
-auto init = atexit( [](){ ofstream("display_runtime.txt") <<'0'; });
