@@ -1,21 +1,22 @@
 class Solution {
 public:
     long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
-        int n = nums1.size();
+        vector<pair<int, int>> temp;
 
-        vector<pair<int,int>> v;
-        for (int i = 0; i < n; i++) {
-            v.push_back({nums2[i], nums1[i]});
+        for (int i = 0; i < nums1.size(); i++) {
+            temp.push_back({nums2[i], nums1[i]});
         }
 
-        sort(v.rbegin(), v.rend()); 
+        sort(temp.rbegin(), temp.rend());
+
+        long long max_score = 0;
+        long long sum = 0;
 
         priority_queue<int, vector<int>, greater<int>> pq;
-        long long sum = 0, answer = 0;
 
-        for (int i = 0; i < n; i++) {
-            pq.push(v[i].second);
-            sum += v[i].second;
+        for (int i = 0; i < nums1.size(); i++) {
+            pq.push(temp[i].second);
+            sum += temp[i].second;
 
             if (pq.size() > k) {
                 sum -= pq.top();
@@ -23,13 +24,10 @@ public:
             }
 
             if (pq.size() == k) {
-                answer = max(answer, sum * v[i].first);
+                max_score = max(max_score, sum * 1LL * temp[i].first);
             }
         }
 
-        return answer;
+        return max_score;
     }
 };
-
-auto init = atexit([]() { ofstream("display_runtime.txt") << "0"; });
-
