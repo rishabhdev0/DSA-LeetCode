@@ -1,54 +1,73 @@
 class Solution {
 public:
-    vector<vector<int>> dir = {{-1,0},{1,0},{0,-1},{0,1}};
-    int n;
+    vector<vector<int>> direction = {
+        {-1, 0},
+        {0, 1},
+        {0, -1},
+        {1, 0}
+    };
 
-    bool isPossible(int mid, vector<vector<int>>& grid) {
-        if (grid[0][0] > mid) return false;
+    int n, m;
 
-        vector<vector<bool>> visited(n, vector<bool>(n, false));
-        queue<pair<int,int>> q;
+    void dfs(int i, int j, int node,
+             vector<vector<int>>& grid,
+             vector<vector<int>>& visited) {
 
-        q.push({0,0});
-        visited[0][0] = true;
+        visited[i][j] = 1;
 
-        while (!q.empty()) {
-            auto [x, y] = q.front();
-            q.pop();
+        for (auto dir : direction) {
+            int new_i = i + dir[0];
+            int new_j = j + dir[1];
 
-            if (x == n-1 && y == n-1) return true;
+            if (new_i >= 0 && new_i < n &&
+                new_j >= 0 && new_j < m &&
+                visited[new_i][new_j] == 0 &&
+                grid[new_i][new_j] <= node) {
 
-            for (auto &d : dir) {
-                int nx = x + d[0];
-                int ny = y + d[1];
-
-                if (nx >= 0 && ny >= 0 && nx < n && ny < n &&
-                    !visited[nx][ny] && grid[nx][ny] <= mid) {
-                    visited[nx][ny] = true;
-                    q.push({nx, ny});
-                }
+                dfs(new_i, new_j, node, grid, visited);
             }
         }
-        return false;
+    }
+
+    bool canSwim(int node, vector<vector<int>>& grid) {
+        if (grid[0][0] > node) {
+            return false;
+        }
+
+        vector<vector<int>> visited(n, vector<int>(m, 0));
+
+        dfs(0, 0, node, grid, visited);
+
+        return visited[n - 1][m - 1];
     }
 
     int swimInWater(vector<vector<int>>& grid) {
         n = grid.size();
+        m = grid[0].size();
 
-        int l = grid[0][0];
-        int r = n * n - 1;
-        int ans = r;
+        int low = 0;
+        int high = 0;
 
-        while (l <= r) {
-            int mid = l + (r - l) / 2;
-
-            if (isPossible(mid, grid)) {
-                ans = mid;
-                r = mid - 1;
-            } else {
-                l = mid + 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                high = max(high, grid[i][j]);
+                low = min(low , grid[i][j]);
             }
         }
-        return ans;
+
+        int result = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (canSwim(mid, grid)) {
+                result = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return result;
     }
 };
