@@ -2,26 +2,25 @@ class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
         int totalSum = 0;
+        int currSum = 0;
+        int maxSum = INT_MIN;
+        int currMin = 0;
+        int minSum = INT_MAX;
 
-        int currMax = 0, maxSum = INT_MIN;
-        int currMin = 0, minSum = INT_MAX;
+        for(int i = 0 ; i <  nums.size() ; i++){
+            currSum = max(nums[i] , nums[i] + currSum);
+            maxSum = max(maxSum , currSum);
 
-        for (int num : nums) {
-            // Kadane for max subarray
-            currMax = max(num, currMax + num);
-            maxSum = max(maxSum, currMax);
+            // now the most important part : how we are getting the minSum value in the middle
+            currMin = min(nums[i] , currMin + nums[i]);
+            minSum = min(minSum , currMin);
 
-            // Kadane for min subarray
-            currMin = min(num, currMin + num);
-            minSum = min(minSum, currMin);
+            totalSum += nums[i];
 
-            totalSum += num;
         }
-
-        // If all elements are negative
-        if (maxSum < 0)
-            return maxSum;
-
-        return max(maxSum, totalSum - minSum);
+         if(maxSum < 0){
+                return maxSum;
+            }
+        return max(maxSum , totalSum - minSum);
     }
 };
