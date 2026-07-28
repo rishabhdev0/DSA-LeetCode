@@ -1,28 +1,27 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        if (intervals.empty()) return {};
-        sort(intervals.begin(), intervals.end());
+         vector<vector<int>>result;
+          int n = intervals.size();
+          sort(intervals.begin() , intervals.end());
 
-        vector<vector<int>> result;
-        result.push_back(intervals[0]);
+          int prev_start = intervals[0][0];
+          int prev_end = intervals[0][1];
 
-        for (int i = 1; i < intervals.size(); i++) {
-            vector<int>&lastInterval = result.back();  
-            int lastStart = lastInterval[0];    
-            int lastEnd   = lastInterval[1];     
+          for(int i = 1 ; i < n ; i++){
+              int curr_start = intervals[i][0];
+              int curr_end = intervals[i][1];
 
-            int currentStart = intervals[i][0];  
-            int currentEnd   = intervals[i][1]; 
 
-            if (currentStart <= lastEnd) {
-                // Overlap exist , then extend the last interval
-                lastInterval[1] = max(lastEnd, currentEnd);
-            } else {
-                result.push_back(intervals[i]);
-            }
-        }
-
-        return result;
+              if(curr_start <= prev_end){
+                  prev_end = max(curr_end , prev_end);
+              }else{
+                result.push_back({prev_start , prev_end});
+                prev_start = curr_start;
+                prev_end = curr_end;
+              }
+          }
+          result.push_back({prev_start , prev_end});
+          return result;
     }
 };
