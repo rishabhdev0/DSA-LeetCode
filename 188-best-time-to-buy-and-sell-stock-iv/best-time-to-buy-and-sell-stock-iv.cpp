@@ -3,7 +3,7 @@ public:
     int dp[2][101][1001];
 
     int solve(vector<int>& prices , bool buy , int k , int idx){
-        if(idx >= prices.size()) return 0;
+        if(idx >= prices.size() || k ==0) return 0;
         if(k == 0) return 0;
 
         if(dp[buy][k][idx] != -1){
