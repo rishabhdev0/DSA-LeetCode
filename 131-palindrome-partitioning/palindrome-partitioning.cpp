@@ -3,34 +3,46 @@ public:
     vector<vector<string>> result;
     vector<string> temp;
 
-    bool isPalindrome(string &s, int i, int j) {
-        while (i <= j) {
-            if (s[i] != s[j]) {
+    bool palindrome(string s) {
+        int start = 0;
+        int end = s.length() - 1;
+
+        while (start < end) {
+            if (s[start] != s[end])
                 return false;
-            }
-            i++;
-            j--;
+            start++;
+            end--;
         }
+
         return true;
     }
 
-    void backtracking(string &s, int idx) {
-        if (idx >= s.length()) {
+    void backtracking(int idx, string &s) {
+
+        if (idx == s.length()) {
             result.push_back(temp);
             return;
         }
 
         for (int i = idx; i < s.length(); i++) {
-            if (isPalindrome(s, idx, i)) {
-                temp.push_back(s.substr(idx, i - idx + 1));
-                backtracking(s, i + 1);
+
+            string curr = s.substr(idx, i - idx + 1);
+
+            if (palindrome(curr)) {
+
+                temp.push_back(curr);
+
+                backtracking(i + 1, s);
+
                 temp.pop_back();
             }
         }
     }
 
     vector<vector<string>> partition(string s) {
-        backtracking(s, 0);
+
+        backtracking(0, s);
+
         return result;
     }
 };
