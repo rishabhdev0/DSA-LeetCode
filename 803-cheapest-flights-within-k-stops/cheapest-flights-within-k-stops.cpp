@@ -1,38 +1,33 @@
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<vector<pair<int, int>>> adj(n);
-        for(auto &flight : flights){
-            adj[flight[0]].push_back({flight[1], flight[2]});
+        vector<vector<pair<int , int>>>adj(n);
+
+        for(auto& flight : flights){
+            int u = flight[0];
+            int v = flight[1];
+            int c = flight[2];
+            adj[u].push_back({v , c});
         }
-        
-        vector<int> dist(n, INT_MAX);
+        vector<int>dist(n , INT_MAX);
+        queue<pair<int , int>>que;
+        que.push({src , 0});
         dist[src] = 0;
-        
-        queue<pair<int, int>> q; // {node, cost}
-        q.push({src, 0});
-        int stops = 0;
-        
-        while(!q.empty() && stops <= k){
-            int size = q.size();
-            vector<int> temp = dist; // Temporary array to avoid using same iteration updates
-            
-            for(int i = 0; i < size; i++){
-                auto [node, cost] = q.front();
-                q.pop();
-                
-                for(auto &[neighbor, price] : adj[node]){
-                    int newCost = cost + price;
-                    if(newCost < temp[neighbor]){
-                        temp[neighbor] = newCost;
-                        q.push({neighbor, newCost});
+
+        while(!que.empty() && k >= 0){
+            int sz = que.size();
+            for(int i = 0 ; i < sz ; i++){
+                auto[node , cost] = que.front();
+                que.pop();
+                for(auto &[next , price] : adj[node]){
+                    if(cost + price < dist[next]){
+                       dist[next] = cost + price;
+                       que.push({next , dist[next]});
                     }
                 }
             }
-            dist = temp; // Update 
-            stops++;
+            k--;
         }
-        
         return dist[dst] == INT_MAX ? -1 : dist[dst];
     }
 };
