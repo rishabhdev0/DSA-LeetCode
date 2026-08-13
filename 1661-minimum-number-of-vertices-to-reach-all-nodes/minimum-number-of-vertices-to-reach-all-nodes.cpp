@@ -1,19 +1,18 @@
 class Solution {
 public:
     vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
-       // populate all the indegree ==0  because we can reach it any way 
-       vector<bool>indegree(n , false);
-       for(auto edge : edges){
-        int u = edge[0];
-        int v = edge[1];
-        indegree[v] = true;
-       } 
-       vector<int>result;
-       for(int i = 0 ; i < n ; i++){
-        if(indegree[i] == false){
-            result.push_back(i);
+        vector<int>indegree(n , false);
+        for(auto& edge : edges){
+            int u = edge[0];
+            int v = edge[1];
+            indegree[v] = true;
         }
-       }
-       return result;
+        vector<int>result;
+        for(int i = 0 ; i < n ; i++){
+            if(indegree[i] == false){
+                result.push_back(i);
+            }
+        }
+        return result;
     }
 };
