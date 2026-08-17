@@ -11,7 +11,7 @@ public:
             currSum = max(nums[i] , nums[i] + currSum);
             maxSum = max(maxSum , currSum);
 
-            // now the most important part : how we are getting the minSum value in the middle
+            // remove the negative chuncks that we didnt want
             currMin = min(nums[i] , currMin + nums[i]);
             minSum = min(minSum , currMin);
 
