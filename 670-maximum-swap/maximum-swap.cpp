@@ -1,27 +1,32 @@
 class Solution {
 public:
     int maximumSwap(int num) {
+
         string s = to_string(num);
         int n = s.length();
-        
-        vector<int> last(10, -1);
-        
-        // Store last occurrence of each digit
-        for (int i = 0; i < n; i++) {
-            last[s[i] - '0'] = i;
-        }
 
-        // Traverse digits
         for (int i = 0; i < n; i++) {
-            // find the bigger number
-            for (int d = 9; d > s[i] - '0'; d--) {
-                if (last[d] > i) {
-                    swap(s[i], s[last[d]]);
-                    return stoi(s);
+
+            int max_val = -1;
+            int max_idx = -1;
+
+            for (int j = i + 1; j < n; j++) {
+
+                if (s[i] < s[j]) {
+
+                    if (max_val <= s[j] - '0') {
+                        max_val = s[j] - '0';
+                        max_idx = j;
+                    }
                 }
             }
+
+            if (max_val != -1) {
+                swap(s[i], s[max_idx]);
+                return stoi(s);
+            }
         }
-        
+
         return num;
     }
 };
