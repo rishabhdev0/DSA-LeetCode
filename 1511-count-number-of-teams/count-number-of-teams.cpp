@@ -1,40 +1,51 @@
 class Solution {
 public:
-    int dp1[1001][3];
+    int n;
+    int dp[1001][3];
     int dp2[1001][3];
 
-    int solve_inc(vector<int>& rating, int idx, int count){
-        if(count == 2) return 1;
-        if(idx >= rating.size()) return 0;
+    int solve_inc(vector<int>& rating, int idx, int count) {
+        if (count == 3) {
+            return 1;
+        }
 
-        if(dp1[idx][count] != -1){
-            return dp1[idx][count];
+        if (idx >= n) {
+            return 0;
+        }
+
+        if (dp[idx][count] != -1) {
+            return dp[idx][count];
         }
 
         int ans = 0;
 
-        for(int j = idx + 1; j < rating.size(); j++){
-            if(rating[j] > rating[idx]){
-                ans += solve_inc(rating, j, count + 1);
+        for (int i = idx + 1; i < n; i++) {
+            if (rating[i] > rating[idx]) {
+                ans += solve_inc(rating, i, count + 1);
             }
         }
 
-        return dp1[idx][count] = ans;
+        return dp[idx][count] = ans;
     }
 
-    int solve_dec(vector<int>& rating, int idx, int count){
-        if(count == 2) return 1;
-        if(idx >= rating.size()) return 0;
+    int solve_dec(vector<int>& rating, int idx, int count) {
+        if (count == 3) {
+            return 1;
+        }
 
-        if(dp2[idx][count] != -1){
+        if (idx >= n) {
+            return 0;
+        }
+
+        if (dp2[idx][count] != -1) {
             return dp2[idx][count];
         }
 
         int ans = 0;
 
-        for(int j = idx + 1; j < rating.size(); j++){
-            if(rating[j] < rating[idx]){
-                ans += solve_dec(rating, j, count + 1);
+        for (int i = idx + 1; i < n; i++) {
+            if (rating[i] < rating[idx]) {
+                ans += solve_dec(rating, i, count + 1);
             }
         }
 
@@ -42,17 +53,18 @@ public:
     }
 
     int numTeams(vector<int>& rating) {
-        memset(dp1, -1, sizeof(dp1));
+        n = rating.size();
+
+        memset(dp, -1, sizeof(dp));
         memset(dp2, -1, sizeof(dp2));
 
-        int n = rating.size();
-        int ans = 0;
+        int answer = 0;
 
-        for(int i = 0; i < n; i++){
-            ans += solve_inc(rating, i, 0);
-            ans += solve_dec(rating, i, 0);
+        for (int i = 0; i < n; i++) {
+            answer += solve_inc(rating, i, 1);
+            answer += solve_dec(rating, i, 1);
         }
 
-        return ans;
+        return answer;
     }
 };
