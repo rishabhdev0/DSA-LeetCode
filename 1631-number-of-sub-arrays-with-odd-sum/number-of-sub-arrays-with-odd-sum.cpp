@@ -1,24 +1,22 @@
 class Solution {
 public:
     int numOfSubarrays(vector<int>& arr) {
-        // simple intution  -> left side me kitne even dekh rha hai prefix sum me;
-        const int MOD = 1e9 + 7;
         int n = arr.size();
-        long long even = 1;
-        long long odd = 0;
-        long long count = 0;
-        long long sum = 0;
+        int evenCount = 1;
+        int oddCount = 0;
+        int count  = 0;
+        int sum = 0;
+        int mod = 1e9 + 7;
         for(int i = 0 ; i < n ; i++){
-            sum += arr[i];
-            if(sum % 2 == 0){
-                // odd + even =  odd;
-                count += odd; // previsously last seen odd 
-                even++;
-            }else{
-                count += even; // prevoisly even seen;
-                odd++;
-            }
-            count %= MOD;
+           sum += arr[i];
+           if(sum % 2 == 0){
+               count += oddCount;
+               evenCount++;
+           }else{
+              count += evenCount;
+              oddCount++;
+           }
+           count %= mod;
         }
         return count;
     }
