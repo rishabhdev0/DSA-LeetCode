@@ -1,9 +1,9 @@
 class Solution {
 public:
     int maxAbsoluteSum(vector<int>& nums) {
-        int sum = 0;
-        int  minSum = 0;
+        int minSum =0;
         int maxSum = 0;
+        int sum = 0;
         for(int num : nums){
             sum += num;
             minSum = min(minSum , sum);
