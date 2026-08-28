@@ -17,7 +17,6 @@ public:
         int n = bombs.size();
         adj.resize(n);
         
-        // Build the graph
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 if(i == j) continue;
