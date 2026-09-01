@@ -1,22 +1,19 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        unordered_map<char, char> sToT; // mapping s -> t
-        unordered_map<char, char> tToS; // mapping t -> s
+        unordered_map<char , char>mp1;
+        unordered_map<char , char>mp2;
         int n = s.length();
-        
-        for(int i = 0; i < n; i++){
+        for(int i = 0 ; i < n ; i++){
             char st = s[i];
             char tt = t[i];
-            
-            // Check if mapping conflicts exist
-            if((sToT.find(st) != sToT.end() && sToT[st] != tt) || 
-               (tToS.find(tt) != tToS.end() && tToS[tt] != st)) {
+            // have we map this before ? in both 
+            if((mp1.find(st) != mp1.end() && mp1[st] !=  tt) ||
+              (mp2.find(tt) != mp2.end() && mp2[tt] != st)){
                 return false;
-            }
-            
-            sToT[st] = tt;
-            tToS[tt] = st;
+              }
+              mp1[st] = tt;
+              mp2[tt] = st;
         }
         return true;
     }
