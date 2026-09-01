@@ -1,19 +1,19 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        unordered_map<int, int> freq;
-        int n = nums.size();
-        
-        for(int num : nums) {
-            freq[num]++;
+        // using  Boyer–Moore Majority Vote Algorithm
+      int curr = 0;
+      int count = 0;
+      for(int num : nums){
+        if(count == 0){
+            curr = num;
         }
-        
-        for(auto it = freq.begin(); it != freq.end(); it++) {
-            if(it->second > n / 2) {
-                return it->first;
-            }
+        if(curr == num){
+            count++;
+        }else{
+            count--;
         }
-        
-        return -1; 
+      }
+      return curr; 
     }
 };
