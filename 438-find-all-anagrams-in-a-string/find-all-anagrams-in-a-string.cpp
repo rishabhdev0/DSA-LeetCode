@@ -1,37 +1,39 @@
 class Solution {
-private:
-    bool isZero(const vector<int>& freq) {
-        for (int i : freq) {
-            if (i != 0)
-                return false;
-        }
-        return true;
-    }
 public:
+    bool check(vector<int>& freq , vector<int>& check){
+       return freq == check;
+    }
+
     vector<int> findAnagrams(string s, string p) {
-        int n = s.length();
-        int m = p.length();
-        vector<int> result;
-        if (n < m) return result;
+          int n = s.length();
+          int m = p.length();
+          vector<int>idx;
 
-        vector<int> freq(26, 0);
-        for (int i = 0; i < m; i++) {
+          if( m > n) return idx;
+
+         vector<int>freq(26 , 0);
+         for(int i = 0 ; i < m ; i++){
             freq[p[i] - 'a']++;
-        }
+         }
 
-        int i = 0, j = 0;
-        while (j < n) {
-            freq[s[j] - 'a']--;
+         int i = 0;
+         int j = 0;
+         vector<int>window(26 , 0);
 
-            if (j - i + 1 == m) {
-                if (isZero(freq)) {
-                    result.push_back(i);
-                }
-                freq[s[i] - 'a']++;
+         while(j < n){
+              window[s[j] - 'a']++;
+              if(j - i + 1 > m){
+                window[s[i] - 'a']--;
                 i++;
-            }
-            j++;
-        }
-        return result;
+              }
+              if(j - i + 1 == m){
+                 // check al the character matches the freq;
+                 if(check(freq , window)){
+                    idx.push_back(i);
+                 }
+              }
+              j++;
+         }
+         return idx;
     }
 };
