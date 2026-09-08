@@ -6,15 +6,15 @@ public:
         mp[0] = -1;
         int sum = 0;
         for(int i = 0 ; i < n ; i++){
-            sum += nums[i];
-            int remainder = sum % k;
-            if(mp.find(remainder) != mp.end()){
-                if(i - mp[remainder] >= 2){
+             sum += nums[i];
+             int mod = sum % k;
+             if(mp.count(mod)){
+                 if(i - mp[mod] >= 2){
                     return true;
-                }
-            }else{
-                mp[remainder] = i;
-            }
+                 }
+             }else{
+                mp[mod] = i;
+             }
         }
         return false;
     }
