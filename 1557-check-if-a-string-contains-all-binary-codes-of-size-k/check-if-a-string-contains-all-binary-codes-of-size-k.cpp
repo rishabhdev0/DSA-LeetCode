@@ -1,17 +1,17 @@
 class Solution {
 public:
     bool hasAllCodes(string s, int k) {
-        unordered_set<string>st;
         int n = s.length();
-        int count = 1 << k; // pw(2 , k);
-        for(int i = k ; i <= n ; i++){
-            string sub = s.substr(i-k , k);
-            if(!st.count(sub)){
-                st.insert(sub);
-                count--;
+        set<string>count;
+        int i = 0;
+        int j = 0;
+        while(j < n){
+            if(j - i + 1 == k){
+                count.insert(s.substr(i , k));
+                i++;
             }
-            if(count == 0) return true;
+            j++;
         }
-        return false;
+        return count.size() == (1 << k);
     }
 };
