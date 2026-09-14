@@ -1,25 +1,25 @@
 class Solution {
 public:
     bool canArrange(vector<int>& arr, int k) {
-        unordered_map<int,int> freq;
-
-        for(int x : arr) {
-            int rem = ((x % k) + k) % k;
-            freq[rem]++;
+        unordered_map<int , int>freq;
+        for(int ar : arr){
+            int mod = ((ar % k) + k) % k;
+            freq[mod]++;
         }
-
-        if(freq[0] % 2) return false;
-
-        for(int i = 1; i < k; i++) {
-            if(i == k - i) {
-                if(freq[i] % 2) return false;
-            }
-            else {
-                if(freq[i] != freq[k - i])
+        for(auto it : freq){
+            int rem = it.first;
+            int times = it.second;
+            if(rem == 0){
+                if(times % 2 != 0){
                     return false;
+                }
+            }else{
+                int needed = k - rem;
+                if(freq[needed] != times){
+                    return false;
+                }
             }
         }
-
         return true;
     }
 };
