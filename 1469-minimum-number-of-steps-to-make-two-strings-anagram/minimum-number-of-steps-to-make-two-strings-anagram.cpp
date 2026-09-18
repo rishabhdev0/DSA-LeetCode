@@ -1,20 +1,26 @@
 class Solution {
 public:
     int minSteps(string s, string t) {
-         vector<int>freq(26 , 0);
-         for(int i = 0 ; i < s.length() ; i++){
+        int n = s.length();
+
+        vector<int> freq(26, 0);
+
+        for(int i = 0; i < s.length(); i++){
             freq[s[i] - 'a']++;
-         }
-         int n = t.length();
-         int Count = 0;
-         for(int i = 0 ; i < n ; i++){
-            int index = t[i] - 'a';
-            if(freq[index] > 0){
-                freq[index]--;
-            }else{
-                Count++;
-            }
-         }
-         return Count;
+        }
+
+        for(int i = 0; i < t.length(); i++){
+            freq[t[i] - 'a']--;
+        }
+
+        int count = 0;
+
+        for(int i = 0; i < 26; i++){
+           if(freq[i] < 0){ // not present in t
+               count += abs(freq[i]);
+           }
+        }
+
+        return count;
     }
 };
