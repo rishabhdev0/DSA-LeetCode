@@ -11,7 +11,7 @@ public:
         
         for(int i = 0; i < n; i++){
             if(customers[i] == 'Y'){
-                current_penalty--; 
+                current_penalty--;  
             } else 
                 current_penalty++; 
             
@@ -23,4 +23,4 @@ public:
         
         return min_hour;
     }
-};
+}; 
