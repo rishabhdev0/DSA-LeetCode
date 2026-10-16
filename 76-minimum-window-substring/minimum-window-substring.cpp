@@ -18,7 +18,6 @@ public:
                 required--;
             }
             freq[s[j]]--;
-
             while (required == 0) {
                 if (j - i + 1 < min_len) {
                     min_len = j - i + 1;
