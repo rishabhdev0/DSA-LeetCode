@@ -1,44 +1,26 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
-
         int n = s.length();
-        int max_Len = 0;
-
-        
-        for (char ch = 'A'; ch <= 'Z'; ch++) {
-
+        int maxLen = 0;
+        for(char ch = 'A' ; ch <= 'Z' ; ch++){
             int i = 0;
-            int j = 0;
-
-            
-            int replacements = k;
-
-            while (j < n) {
-
-                
-                if (s[j] != ch) {
-                    replacements--;
+            int j =0;
+            int replacement = k;
+            while(j < n){
+                if(s[j] != ch){
+                    replacement--;
                 }
-
-               
-                while (replacements < 0) {
-
-                    
-                    if (s[i] != ch) {
-                        replacements++;
+                while(replacement < 0){
+                    if(s[i] != ch){
+                        replacement++;
                     }
-
                     i++;
                 }
-
-               
-                max_Len = max(max_Len, j - i + 1);
-
+                maxLen = max(maxLen , j - i + 1);
                 j++;
             }
         }
-
-        return max_Len;
+        return maxLen;
     }
 };
