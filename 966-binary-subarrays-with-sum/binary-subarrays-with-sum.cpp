@@ -1,18 +1,29 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int n = nums.size();
-        unordered_map<int , int>freq;
-        freq[0] = 1; // as 0 is always present
-        int sum = 0;
+    int atmost(vector<int>& nums, int k) {
+        if (k < 0) return 0;
+
+        int i = 0;
+        int j = 0;
         int count = 0;
-        for(int num  : nums){
-            sum+=num;
-            if(freq.count(sum - goal)){
-                count+=freq[sum - goal];
+        int sum = 0;
+
+        while (j < nums.size()) {
+            sum += nums[j];
+
+            while (sum > k) {
+                sum -= nums[i];
+                i++;
             }
-            freq[sum]++;
+
+            count += j - i + 1;
+            j++;
         }
+
         return count;
+    }
+
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return atmost(nums, goal) - atmost(nums, goal - 1);
     }
 };
