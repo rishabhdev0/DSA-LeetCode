@@ -1,16 +1,18 @@
 class Solution {
 public:
     int minMoves2(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
         int n = nums.size();
-        
-        int median = nums[n / 2];  // works for both even & odd
-        
-        int count = 0;
-        for(int i = 0; i < n; i++){
-            count += abs(nums[i] - median);
+
+        sort(nums.begin(), nums.end());
+
+        int mid = nums[n / 2];
+        int result = 0;
+
+        for(int i = 0; i < n; i++) {
+            int diff = abs(nums[i] - mid);
+            result += diff;
         }
-        
-        return count;
+
+        return result;
     }
 };
