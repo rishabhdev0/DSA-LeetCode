@@ -10,7 +10,7 @@ private:
 
 public:
     string sortVowels(string s) {
-        multiset<char> st;  // allows duplicates & keeps sorted order
+        multiset<char> st;  
         int n = s.length();
         for (int i = 0 ; i < n ; i++) {
             if (isVowel(s[i])) {
@@ -18,11 +18,10 @@ public:
             }
         }
 
-        // replace vowels with sorted ones
         auto it = st.begin();
         for (int i = 0; i < n ; i++) {
             if (isVowel(s[i])) {
-                s[i] = *it;  // take next smallest vowel
+                s[i] = *it;  
                 it++;
             }
         }
