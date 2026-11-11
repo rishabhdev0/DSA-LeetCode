@@ -10,8 +10,11 @@ public:
             if(nums[mid] > nums[mid + 1]) {
                 end = mid;
             }
-            else {
+            else if(nums[mid] < nums[mid + 1]) {
                 start = mid + 1;
+            }
+            else {
+                end--;
             }
         }
 
