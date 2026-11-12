@@ -1,19 +1,17 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> dp(n , 1);
-        int max_Len = 1;
-        for(int i = 0 ; i < n ; i++){
+         int n = nums.size();
+         vector<int>dp(n , 1);
+         int max_len = 1;
+         for(int  i = 0 ; i < n ; i++){
             for(int j = 0 ; j < i ; j++){
-                if(nums[i] > nums[j]){
+                if(nums[j] < nums[i]){
                     dp[i] = max(dp[i] , dp[j] + 1);
-                    max_Len = max(max_Len , dp[i]);
+                    max_len = max(max_len , dp[i]);
                 }
             }
-        }
-         return max_Len;
+         }
+         return max_len;
     }
 };
-
-auto init = atexit([]() { ofstream("display_runtime.txt") << "000"; });
