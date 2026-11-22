@@ -1,39 +1,44 @@
 class Solution {
-private:
-    bool isPossibleToMakeBouquets(vector<int>& bloomDay, int m, int k, int day) {
-        int bouquetCount = 0;
-        int consecutiveFlowers = 0;
+public:
+    bool canBloom(vector<int>& bloomDay, int days, int m, int k) {
+        int n = bloomDay.size();
+        int count = 0;
+        int check = 0;
 
-        for (int bloom : bloomDay) {
-            if (bloom <= day) {
-                consecutiveFlowers++;
-                if (consecutiveFlowers == k) {
-                    bouquetCount++;
-                    consecutiveFlowers = 0;
-                }
-            } else {
-                consecutiveFlowers = 0;
+        for(int i = 0; i < n; i++) {
+            if(bloomDay[i] <= days) {
+                count++;
+            }
+            else {
+                count = 0;
+            }
+            if(count >= k) {
+                count = 0;
+                check++;
             }
         }
-        return bouquetCount >= m;
+
+        return check >= m;
     }
 
-public:
     int minDays(vector<int>& bloomDay, int m, int k) {
-        long long totalFlowers = (long long)m * k;
-        if (totalFlowers > bloomDay.size()) return -1;
+        int n = bloomDay.size();
 
-        int left = *min_element(bloomDay.begin(), bloomDay.end());
-        int right = *max_element(bloomDay.begin(), bloomDay.end());
+        if(1LL * m * k > n) return -1;
+
         int result = -1;
+        int low = *min_element(bloomDay.begin(), bloomDay.end());
+        int high = *max_element(bloomDay.begin(), bloomDay.end());
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (isPossibleToMakeBouquets(bloomDay, m, k, mid)) {
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if(canBloom(bloomDay, mid, m, k)) {
                 result = mid;
-                right = mid - 1;
-            } else {
-                left = mid + 1;
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
             }
         }
 
