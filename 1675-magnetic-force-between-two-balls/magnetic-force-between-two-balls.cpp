@@ -1,13 +1,13 @@
 class Solution {
 public:
     bool canPlaceBalls(vector<int>& position, int m, int minForce) {
-        int count = 1; // 1 ball placed
-        int lastPos = position[0]; // to keep track of last pos
+        int count = 1;
+        int lastPos = position[0]; 
 
         for (int i = 1; i < position.size(); ++i) {
             if (position[i] - lastPos >= minForce) {
                 count++;
-                lastPos = position[i]; // update the lastpos
+                lastPos = position[i]; 
             }
         }
 
@@ -19,7 +19,7 @@ public:
 
         int left = 1;
         int right = position.back() - position.front();
-        int result = 0;
+        int result = -1;
 
         while (left <= right) {
             int mid = left + (right - left) / 2;
